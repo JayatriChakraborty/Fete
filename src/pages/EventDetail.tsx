@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
 import { ArrowLeft, Share2, Calendar, MapPin, Bookmark } from 'lucide-react';
@@ -138,7 +137,7 @@ const EventDetail = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-6 bg-background/80 backdrop-blur-lg">
+      <div className="w-full max-w-sm p-6 mx-auto">
         {event.price > 0 ? (
           <Button
             onClick={handleBuyTicket}
