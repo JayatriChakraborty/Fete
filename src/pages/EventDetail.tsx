@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
 import { ArrowLeft, Share2, Calendar, MapPin, Bookmark } from 'lucide-react';
@@ -32,6 +31,20 @@ const EventDetail = () => {
 
   const handleSave = () => {
     toggleSaveEvent(event.id);
+  };
+
+  const handleBuyTicket = () => {
+    toast.info("Redirecting to ticket purchase...", {
+      description: "This feature is coming soon!",
+    });
+  };
+
+  const handleJoin = () => {
+    toast.success("You've joined the event!");
+  };
+
+  const handleRsvp = () => {
+    toast.success("You've RSVP'd to this event!");
   };
 
   const locationParts = event.location.split(',');
@@ -116,13 +129,16 @@ const EventDetail = () => {
 
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-6 bg-background/80 backdrop-blur-lg">
         {event.price > 0 ? (
-          <button className="w-full h-14 bg-gradient-to-r from-brand-purple to-brand-pink text-white font-bold rounded-full flex items-center justify-center text-lg hover:opacity-90 transition-opacity">
+          <Button
+            onClick={handleBuyTicket}
+            className="w-full h-14 bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white font-bold rounded-full text-lg backdrop-blur-sm border-2 border-white/10 hover:opacity-90 transition-opacity"
+          >
             Buy Ticket ${event.price}
-          </button>
+          </Button>
         ) : (
           <div className="flex items-center gap-4">
-            <Button size="lg" variant="outline" className="w-full">Join</Button>
-            <Button size="lg" className="w-full bg-gradient-to-r from-brand-purple to-brand-pink">RSVP</Button>
+            <Button onClick={handleJoin} size="lg" variant="ghost" className="w-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white">Join</Button>
+            <Button onClick={handleRsvp} size="lg" className="w-full bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
           </div>
         )}
       </div>
