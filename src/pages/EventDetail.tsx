@@ -1,4 +1,3 @@
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
 import { ArrowLeft, Share2, Calendar, MapPin, Bookmark, Check, X } from 'lucide-react';
@@ -42,8 +41,6 @@ const EventDetail = () => {
   const rsvpStatus = getEventRsvpStatus(event.id);
 
   const handleBack = () => {
-    // This checks if there's a history stack to go back to.
-    // If not (e.g., page was opened in a new tab), it navigates to the homepage.
     if (window.history.state && window.history.state.idx > 0) {
       navigate(-1);
     } else {
@@ -64,10 +61,6 @@ const EventDetail = () => {
     toast.info("Redirecting to ticket purchase...", {
       description: "This feature is coming soon!",
     });
-  };
-
-  const handleJoin = () => {
-    toast.success("You've joined the event!");
   };
 
   const handleRsvpAction = (status: 'YES' | 'NO') => {
@@ -166,45 +159,60 @@ const EventDetail = () => {
             Buy Ticket ${event.price}
           </Button>
         ) : (
-          <div className="flex items-center gap-4">
-            <Button onClick={handleJoin} size="lg" variant="ghost" className="w-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white">Join</Button>
-            {rsvpStatus && rsvpStatus !== 'PENDING' ? (
-              <div className="w-full h-14 flex items-center justify-center text-lg font-bold rounded-full bg-card text-white">
-                RSVP'd: <span className={`ml-2 ${rsvpStatus === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{rsvpStatus}</span>
+          <>
+            {isSaved ? (
+              <div className="flex w-full items-center gap-4">
+                <div className="flex-1">
+                  {rsvpStatus && rsvpStatus !== 'PENDING' ? (
+                    <div className="h-14 flex items-center justify-center text-lg font-bold rounded-full bg-card text-white">
+                      RSVP'd: <span className={`ml-2 ${rsvpStatus === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{rsvpStatus}</span>
+                    </div>
+                  ) : (
+                    <Dialog open={isRsvpDialogOpen} onOpenChange={setIsRsvpDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button size="lg" className="w-full h-14 bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[400px] bg-card border-slate-800 text-white p-0 rounded-2xl overflow-hidden">
+                        <img src={event.imageUrl} alt={event.title} className="w-full h-48 object-cover" />
+                        <div className="p-6 text-center">
+                          <DialogHeader className="space-y-2 text-center">
+                            <DialogTitle className="text-2xl font-bold">RSVP to {event.title}</DialogTitle>
+                            {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
+                              <p className="text-base text-muted-foreground pt-1">{(event as any).rsvpQuestion}</p>
+                            ) : (
+                              <DialogDescription className="text-base !mt-1">
+                                Let us know if you are planning to attend this event.
+                              </DialogDescription>
+                            )}
+                          </DialogHeader>
+                          <DialogFooter className="pt-6 flex flex-col sm:flex-row gap-4 sm:justify-center">
+                            <Button variant="destructive" className="w-full" onClick={() => handleRsvpAction('NO')}>
+                              <X className="mr-2 h-4 w-4" />
+                              No, I can't make it
+                            </Button>
+                            <Button className="bg-green-600 hover:bg-green-700 w-full" onClick={() => handleRsvpAction('YES')}>
+                              <Check className="mr-2 h-4 w-4" />
+                              Yes, I'm going!
+                            </Button>
+                          </DialogFooter>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+                </div>
+                <Button onClick={handleSave} size="lg" variant="outline" className="flex-1 h-14">
+                  Opt Out
+                </Button>
               </div>
             ) : (
-              <Dialog open={isRsvpDialogOpen} onOpenChange={setIsRsvpDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button size="lg" className="w-full bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[400px] bg-card border-slate-800 text-white p-0 rounded-2xl overflow-hidden">
-                  <img src={event.imageUrl} alt={event.title} className="w-full h-48 object-cover" />
-                  <div className="p-6 text-center">
-                    <DialogHeader className="space-y-2">
-                      <DialogTitle className="text-2xl font-bold">RSVP to {event.title}</DialogTitle>
-                      {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
-                        <p className="text-base text-muted-foreground pt-1">{(event as any).rsvpQuestion}</p>
-                      ) : (
-                        <DialogDescription className="text-base !mt-1">
-                          Let us know if you are planning to attend this event.
-                        </DialogDescription>
-                      )}
-                    </DialogHeader>
-                    <DialogFooter className="pt-6 flex flex-col sm:flex-row gap-4 sm:justify-center">
-                      <Button variant="destructive" className="w-full" onClick={() => handleRsvpAction('NO')}>
-                        <X className="mr-2 h-4 w-4" />
-                        No, I can't make it
-                      </Button>
-                      <Button className="bg-green-600 hover:bg-green-700 w-full" onClick={() => handleRsvpAction('YES')}>
-                        <Check className="mr-2 h-4 w-4" />
-                        Yes, I'm going!
-                      </Button>
-                    </DialogFooter>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <Button
+                onClick={handleSave}
+                className="w-full h-14 bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white font-bold rounded-full text-lg backdrop-blur-sm border-2 border-white/10 hover:opacity-90 transition-opacity"
+              >
+                Join Event
+              </Button>
             )}
-          </div>
+          </>
         )}
       </div>
       
