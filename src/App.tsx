@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +13,7 @@ import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
 import RSVP from "./pages/RSVP";
 import { SavedEventsProvider } from "./contexts/SavedEventsContext";
+import { RSVPProvider } from "./contexts/RSVPContext";
 import SavedEvents from "./pages/SavedEvents";
 
 const queryClient = new QueryClient();
@@ -22,21 +24,23 @@ const App = () => (
       <Toaster />
       <Sonner />
       <SavedEventsProvider>
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/event/:id" element={<EventDetail />} />
-              <Route path="/explore" element={<Explore />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/create" element={<CreateEvent />} />
-              <Route path="/rsvp" element={<RSVP />} />
-              <Route path="/saved" element={<SavedEvents />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
+        <RSVPProvider>
+          <BrowserRouter>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/event/:id" element={<EventDetail />} />
+                <Route path="/explore" element={<Explore />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/create" element={<CreateEvent />} />
+                <Route path="/rsvp" element={<RSVP />} />
+                <Route path="/saved" element={<SavedEvents />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </RSVPProvider>
       </SavedEventsProvider>
     </TooltipProvider>
   </QueryClientProvider>
