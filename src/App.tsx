@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,7 +10,7 @@ import EventDetail from "./pages/EventDetail";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
 import CreateEvent from "./pages/CreateEvent";
-import RSVP from "./pages/RSVP";
+import MyEvents from "./pages/MyEvents";
 import { SavedEventsProvider } from "./contexts/SavedEventsContext";
 import { RSVPProvider } from "./contexts/RSVPContext";
 import { UserEventsProvider } from "./contexts/UserEventsContext";
@@ -35,7 +34,7 @@ const App = () => (
                   <Route path="/explore" element={<Explore />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/create" element={<CreateEvent />} />
-                  <Route path="/rsvp" element={<RSVP />} />
+                  <Route path="/my-events" element={<MyEvents />} />
                   <Route path="/saved" element={<SavedEvents />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />

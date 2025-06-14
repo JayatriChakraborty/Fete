@@ -1,5 +1,4 @@
-
-import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop, HeartPulse, PenSquare, HeartHandshake, PartyPopper } from 'lucide-react';
+import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop, HeartPulse, PenSquare, HeartHandshake, PartyPopper, User } from 'lucide-react';
 
 export type Event = {
   id: number;
@@ -153,6 +152,6 @@ export const navItems: NavItem[] = [
   { name: 'Home', icon: Home, href: '/' },
   { name: 'Explore', icon: Compass, href: '/explore' },
   { name: 'Create', icon: PlusCircle, href: '/create' },
-  { name: 'RSVP', icon: Ticket, href: '/rsvp' },
-  { name: 'Saved', icon: Bookmark, href: '/saved' },
+  { name: 'My Events', icon: Ticket, href: '/my-events' },
+  { name: 'Profile', icon: User, href: '/profile' },
 ];
