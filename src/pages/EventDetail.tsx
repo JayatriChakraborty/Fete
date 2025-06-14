@@ -127,7 +127,7 @@ const EventDetail = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-6 z-30">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm p-6 bg-background/80 backdrop-blur-lg">
         {event.price > 0 ? (
           <Button
             onClick={handleBuyTicket}
