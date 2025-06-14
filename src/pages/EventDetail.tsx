@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
 import { ArrowLeft, Share2, Calendar, MapPin, Bookmark } from 'lucide-react';
@@ -23,6 +24,16 @@ const EventDetail = () => {
   }
   
   const isSaved = isEventSaved(event.id);
+
+  const handleBack = () => {
+    // This checks if there's a history stack to go back to.
+    // If not (e.g., page was opened in a new tab), it navigates to the homepage.
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/', { replace: true }); // Use replace to avoid adding the detail page to history
+    }
+  };
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -60,7 +71,7 @@ const EventDetail = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
 
         <header className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-20">
-          <button onClick={() => navigate(-1)} className="bg-white/10 backdrop-blur-sm p-2 rounded-full hover:bg-white/20 transition-colors">
+          <button onClick={handleBack} aria-label="Go back" className="bg-white/10 backdrop-blur-sm p-2 rounded-full hover:bg-white/20 transition-colors">
             <ArrowLeft className="w-6 h-6" />
           </button>
           <div className="flex items-center gap-2">
