@@ -1,14 +1,11 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { User } from "lucide-react";
+import { User as UserIcon } from "lucide-react";
+import { User } from "@/lib/data";
 
 type UserListItemProps = {
-  user: {
-    id: number;
-    name: string;
-    avatar: string;
-  };
+  user: User;
   isFollowing: boolean;
   onToggleFollow: (userId: number) => void;
 };
@@ -19,7 +16,7 @@ const UserListItem = ({ user, isFollowing, onToggleFollow }: UserListItemProps) 
       <div className="flex items-center gap-4">
         <Avatar>
           <AvatarImage src={user.avatar} alt={user.name} />
-          <AvatarFallback><User /></AvatarFallback>
+          <AvatarFallback><UserIcon /></AvatarFallback>
         </Avatar>
         <span className="font-semibold">{user.name}</span>
       </div>

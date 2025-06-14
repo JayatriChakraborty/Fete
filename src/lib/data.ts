@@ -1,4 +1,16 @@
-import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop, HeartPulse, PenSquare, HeartHandshake, PartyPopper, User } from 'lucide-react';
+import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop, HeartPulse, PenSquare, HeartHandshake, PartyPopper, User as UserIcon } from 'lucide-react';
+
+export type User = {
+  id: number;
+  name: string;
+  avatar: string;
+};
+
+export type Organization = {
+  id: number;
+  name: string;
+  avatar: string;
+};
 
 export type Event = {
   id: number;
@@ -10,7 +22,7 @@ export type Event = {
   imageUrl: string;
   organizer: {
     name: string;
-    avatarUrl: string;
+    avatar: string;
   };
   description: string;
   price: number;
@@ -30,7 +42,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'The Music Fest Co.',
-      avatarUrl: 'https://i.pravatar.cc/150?u=musicfest'
+      avatar: 'https://i.pravatar.cc/150?u=musicfest'
     },
     description: 'Experience the magic of live music under the stars. The International Band Music Concert brings together talented artists from around the globe for a night of unforgettable performances. Enjoy a diverse range of genres, from classical to rock, in the beautiful setting of Grand Park.',
     price: 75,
@@ -48,7 +60,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1501426026826-31c667bdf23d?q=80&w=1935&auto=format&fit=crop',
     organizer: {
       name: 'Art Curators Inc.',
-      avatarUrl: 'https://i.pravatar.cc/150?u=artcurators'
+      avatar: 'https://i.pravatar.cc/150?u=artcurators'
     },
     description: 'Explore the evolution of art in the modern era. This exhibition features masterpieces from renowned artists, showcasing the dynamic shifts in style and perspective that have defined the last century. A must-see for art lovers.',
     price: 50,
@@ -66,7 +78,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'Gourmet Gatherings',
-      avatarUrl: 'https://i.pravatar.cc/150?u=gourmet'
+      avatar: 'https://i.pravatar.cc/150?u=gourmet'
     },
     description: 'Embark on a culinary journey around the world! Our food festival brings the best international cuisines to one place. Sample delicious dishes, watch live cooking demonstrations, and enjoy a vibrant atmosphere with friends and family.',
     price: 0,
@@ -91,7 +103,7 @@ export const moreEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1598822941524-705a5b813b14?q=80&w=1974&auto=format&fit=crop',
     organizer: {
       name: 'Funny Business',
-      avatarUrl: 'https://i.pravatar.cc/150?u=funny'
+      avatar: 'https://i.pravatar.cc/150?u=funny'
     },
     description: 'Get ready to laugh your socks off with the best comedians in town. A night of hilarious stand-up comedy.',
     price: 25,
@@ -109,7 +121,7 @@ export const moreEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963e?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'Film Buffs Society',
-      avatarUrl: 'https://i.pravatar.cc/150?u=filmbuffs'
+      avatar: 'https://i.pravatar.cc/150?u=filmbuffs'
     },
     description: 'Discover the next generation of filmmakers. A three-day festival showcasing independent films from around the world.',
     price: 90,
@@ -117,6 +129,20 @@ export const moreEvents: Event[] = [
     totalTickets: 300,
     ticketsSold: 150,
   },
+];
+
+export const users: User[] = [
+  { id: 101, name: 'Alice Johnson', avatar: 'https://i.pravatar.cc/150?u=alice' },
+  { id: 102, name: 'Bob Williams', avatar: 'https://i.pravatar.cc/150?u=bob' },
+  { id: 103, name: 'Charlie Brown', avatar: 'https://i.pravatar.cc/150?u=charlie' },
+];
+
+export const organizations: Organization[] = [
+  { id: 1, name: 'The Music Fest Co.', avatar: 'https://i.pravatar.cc/150?u=musicfest' },
+  { id: 2, name: 'Art Curators Inc.', avatar: 'https://i.pravatar.cc/150?u=artcurators' },
+  { id: 3, name: 'Gourmet Gatherings', avatar: 'https://i.pravatar.cc/150?u=gourmet' },
+  { id: 4, name: 'Funny Business', avatar: 'https://i.pravatar.cc/150?u=funny' },
+  { id: 5, name: 'Film Buffs Society', avatar: 'https://i.pravatar.cc/150?u=filmbuffs' },
 ];
 
 
@@ -153,5 +179,5 @@ export const navItems: NavItem[] = [
   { name: 'Explore', icon: Compass, href: '/explore' },
   { name: 'Create', icon: PlusCircle, href: '/create' },
   { name: 'My Events', icon: Ticket, href: '/my-events' },
-  { name: 'Profile', icon: User, href: '/profile' },
+  { name: 'Profile', icon: UserIcon, href: '/profile' },
 ];

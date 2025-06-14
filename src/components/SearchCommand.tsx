@@ -9,25 +9,13 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
-import { myEvents, upcomingEvents, moreEvents, users, organizations, Event } from '@/lib/data';
+import { myEvents, upcomingEvents, moreEvents, users, organizations, Event, User, Organization } from '@/lib/data';
 import { Calendar, Building, User as UserIcon } from 'lucide-react';
 
 type SearchCommandProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
 };
-
-type User = {
-  id: number;
-  name: string;
-  avatar: string;
-};
-
-type Organization = {
-  id: number;
-  name: string;
-  avatar: string;
-}
 
 const allEventsData = [...myEvents, ...upcomingEvents, ...moreEvents];
 const uniqueEvents = Array.from(new Map(allEventsData.map(event => [event.id, event])).values());
@@ -47,7 +35,7 @@ const SearchCommand = ({ open, setOpen }: SearchCommandProps) => {
         <CommandEmpty>No results found.</CommandEmpty>
         
         <CommandGroup heading="Events">
-          {uniqueEvents.map((event: Event) => (
+          {uniqueEvents.map((event) => (
             <CommandItem
               key={`event-${event.id}`}
               value={`event ${event.title} ${event.location}`}
@@ -61,7 +49,7 @@ const SearchCommand = ({ open, setOpen }: SearchCommandProps) => {
         
         {organizations && organizations.length > 0 && (
           <CommandGroup heading="Organizations">
-            {(organizations as Organization[]).map((org: Organization) => (
+            {organizations.map((org) => (
               <CommandItem
                 key={`org-${org.id}`}
                 value={`organization ${org.name}`}
@@ -76,7 +64,7 @@ const SearchCommand = ({ open, setOpen }: SearchCommandProps) => {
         
         {users && users.length > 0 && (
           <CommandGroup heading="Hosts">
-            {(users as User[]).map((user: User) => (
+            {users.map((user) => (
               <CommandItem
                 key={`user-${user.id}`}
                 value={`host ${user.name}`}
