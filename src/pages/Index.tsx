@@ -9,8 +9,8 @@ const Index = () => {
     <div className="p-6 space-y-8">
       <Header />
       <SearchBar />
-      <UpcomingEvents />
       <Categories />
+      <UpcomingEvents />
     </div>
   );
 };
@@ -66,3 +66,4 @@ const Categories = () => (
 );
 
 export default Index;
+
