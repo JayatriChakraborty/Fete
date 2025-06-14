@@ -1,7 +1,15 @@
 
-import { navItems } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
+import { Home, Compass, Plus, User, CalendarHeart } from 'lucide-react';
+
+const customNavItems = [
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Explore', href: '/explore', icon: Compass },
+  { name: 'Create', href: '/create', icon: Plus },
+  { name: 'My Events', href: '/my-events', icon: CalendarHeart },
+  { name: 'Profile', href: '/profile', icon: User },
+];
 
 const BottomNav = () => {
   const location = useLocation();
@@ -9,7 +17,7 @@ const BottomNav = () => {
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-card/50 backdrop-blur-lg border-t border-border z-50">
       <div className="flex justify-around items-center h-20">
-        {navItems.map((item) => {
+        {customNavItems.map((item) => {
           const isActive = location.pathname === item.href;
           const isCenterButton = item.name === 'Create';
           if (isCenterButton) {
