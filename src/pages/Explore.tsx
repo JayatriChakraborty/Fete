@@ -23,7 +23,6 @@ const Explore = () => {
   return (
     <div className="flex flex-col h-full animate-in fade-in duration-500">
       <div className="px-6 pt-6 space-y-8">
-        <h1 className="text-3xl font-bold text-white">Explore</h1>
         <Categories 
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
