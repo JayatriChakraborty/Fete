@@ -11,8 +11,8 @@ const BottomNav = () => {
       <div className="flex justify-around items-center h-20">
         {navItems.map((item) => {
           const isActive = location.pathname === item.href;
-          const isAddButton = item.name === 'Add';
-          if (isAddButton) {
+          const isCenterButton = item.name === 'Create';
+          if (isCenterButton) {
             return (
               <Link key={item.name} to={item.href} className="flex-shrink-0">
                 <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-brand-purple to-brand-pink text-white -translate-y-6 shadow-lg shadow-brand-purple/30">
@@ -22,7 +22,7 @@ const BottomNav = () => {
             )
           }
           return (
-            <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors">
+            <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors w-16">
               <item.icon className={cn("w-6 h-6", isActive && "text-brand-purple")} />
               <span className={cn("text-xs", isActive && "text-foreground font-semibold")}>{item.name}</span>
             </Link>

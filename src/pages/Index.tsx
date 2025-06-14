@@ -1,69 +1,99 @@
 
-import CategoryIcon from "@/components/CategoryIcon";
-import EventCard from "@/components/EventCard";
-import { categories, upcomingEvents } from "@/lib/data";
-import { Search, SlidersHorizontal } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import Header from '@/components/Header';
+import SearchBar from '@/components/SearchBar';
+import EventCard from '@/components/EventCard';
+import LocationModal from '@/components/LocationModal';
+import { myEvents, upcomingEvents, moreEvents } from '@/lib/data';
 
 const Index = () => {
-  return (
-    <div className="p-6 space-y-8">
-      <Header />
-      <SearchBar />
-      <Categories />
-      <UpcomingEvents />
-    </div>
-  );
+    const [location, setLocation] = useState<string | null>(null);
+    const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+
+    useEffect(() => {
+        // Use a timeout to prevent the modal from appearing instantly on hot-reload
+        const timer = setTimeout(() => {
+            const hasAskedForLocation = localStorage.getItem('hasAskedForLocation');
+            if (!hasAskedForLocation) {
+                setIsLocationModalOpen(true);
+            }
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    const handleGiveLocationAccess = () => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                // For demonstration, we'll just set a mock location.
+                // A real app would use a reverse geocoding API here.
+                console.log('User position:', position.coords);
+                setLocation("New York, NY");
+                localStorage.setItem('hasAskedForLocation', 'true');
+                setIsLocationModalOpen(false);
+            },
+            (error) => {
+                console.error("Error getting location", error);
+                localStorage.setItem('hasAskedForLocation', 'true'); // Don't ask again
+                setIsLocationModalOpen(false);
+            }
+        );
+    };
+
+    const handleCloseModal = () => {
+        localStorage.setItem('hasAskedForLocation', 'true');
+        setIsLocationModalOpen(false);
+    }
+  
+    return (
+        <div className="p-6 space-y-8 animate-in fade-in duration-500">
+            <Header location={location} />
+            <SearchBar />
+            
+            <YourEvents />
+            <UpcomingEvents />
+            <MoreEvents />
+            
+            <LocationModal
+                isOpen={isLocationModalOpen}
+                onClose={handleCloseModal}
+                onGiveAccess={handleGiveLocationAccess}
+            />
+        </div>
+    );
 };
 
-const Header = () => (
-  <header className="flex justify-between items-center">
-    <div>
-      <h1 className="text-2xl font-bold text-white">Hello, James!</h1>
-      <p className="text-sm text-muted-foreground">Let's find your next event.</p>
-    </div>
-    <div className="w-12 h-12 rounded-full bg-card overflow-hidden">
-      <img src="https://i.pravatar.cc/150?u=james" alt="User avatar" className="w-full h-full object-cover" />
-    </div>
-  </header>
+const HorizontalEventList = ({ title, events }) => (
+    <section className="space-y-4">
+        <h2 className="text-xl font-bold text-white">{title}</h2>
+        <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6">
+            {events.map((event) => (
+                <div key={event.id} className="w-64 flex-shrink-0">
+                    <EventCard event={event} />
+                </div>
+            ))}
+             {events.length === 0 && <p className="text-muted-foreground">No events here yet.</p>}
+        </div>
+    </section>
 );
 
-const SearchBar = () => (
-  <div className="flex items-center gap-4">
-    <div className="relative flex-grow">
-      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-      <input
-        type="text"
-        placeholder="Search events..."
-        className="w-full bg-card border-none rounded-full py-3 pl-12 pr-4 h-12 focus:ring-2 focus:ring-brand-purple transition-shadow"
-      />
-    </div>
-    <button className="w-12 h-12 flex-shrink-0 bg-card rounded-full flex items-center justify-center">
-      <SlidersHorizontal className="w-5 h-5 text-muted-foreground" />
-    </button>
-  </div>
+const YourEvents = () => (
+    <HorizontalEventList title="Your Events" events={myEvents} />
 );
 
 const UpcomingEvents = () => (
-  <section className="space-y-4">
-    <h2 className="text-xl font-bold text-white">Upcoming Events</h2>
-    <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6">
-      {upcomingEvents.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
-    </div>
-  </section>
+    <HorizontalEventList title="Upcoming Events" events={upcomingEvents} />
 );
 
-const Categories = () => (
-  <section className="space-y-4">
-    <h2 className="text-xl font-bold text-white">Categories</h2>
-    <div className="flex justify-around items-center">
-      {categories.map((category) => (
-        <CategoryIcon key={category.name} category={category} />
-      ))}
-    </div>
-  </section>
+const MoreEvents = () => (
+    <section className="space-y-4">
+        <h2 className="text-xl font-bold text-white">More Events</h2>
+        <div className="flex flex-col gap-4">
+            {moreEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+            ))}
+        </div>
+    </section>
 );
 
 export default Index;
-
