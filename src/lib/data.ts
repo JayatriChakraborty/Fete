@@ -22,7 +22,7 @@ export type Event = {
   imageUrl: string;
   organizer: {
     name: string;
-    avatar: string;
+    avatarUrl: string;
   };
   description: string;
   price: number;
@@ -42,7 +42,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'The Music Fest Co.',
-      avatar: 'https://i.pravatar.cc/150?u=musicfest'
+      avatarUrl: 'https://i.pravatar.cc/150?u=musicfest'
     },
     description: 'Experience the magic of live music under the stars. The International Band Music Concert brings together talented artists from around the globe for a night of unforgettable performances. Enjoy a diverse range of genres, from classical to rock, in the beautiful setting of Grand Park.',
     price: 75,
@@ -60,7 +60,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1501426026826-31c667bdf23d?q=80&w=1935&auto=format&fit=crop',
     organizer: {
       name: 'Art Curators Inc.',
-      avatar: 'https://i.pravatar.cc/150?u=artcurators'
+      avatarUrl: 'https://i.pravatar.cc/150?u=artcurators'
     },
     description: 'Explore the evolution of art in the modern era. This exhibition features masterpieces from renowned artists, showcasing the dynamic shifts in style and perspective that have defined the last century. A must-see for art lovers.',
     price: 50,
@@ -78,7 +78,7 @@ export const upcomingEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'Gourmet Gatherings',
-      avatar: 'https://i.pravatar.cc/150?u=gourmet'
+      avatarUrl: 'https://i.pravatar.cc/150?u=gourmet'
     },
     description: 'Embark on a culinary journey around the world! Our food festival brings the best international cuisines to one place. Sample delicious dishes, watch live cooking demonstrations, and enjoy a vibrant atmosphere with friends and family.',
     price: 0,
@@ -103,7 +103,7 @@ export const moreEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1598822941524-705a5b813b14?q=80&w=1974&auto=format&fit=crop',
     organizer: {
       name: 'Funny Business',
-      avatar: 'https://i.pravatar.cc/150?u=funny'
+      avatarUrl: 'https://i.pravatar.cc/150?u=funny'
     },
     description: 'Get ready to laugh your socks off with the best comedians in town. A night of hilarious stand-up comedy.',
     price: 25,
@@ -121,7 +121,7 @@ export const moreEvents: Event[] = [
     imageUrl: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963e?q=80&w=2070&auto=format&fit=crop',
     organizer: {
       name: 'Film Buffs Society',
-      avatar: 'https://i.pravatar.cc/150?u=filmbuffs'
+      avatarUrl: 'https://i.pravatar.cc/150?u=filmbuffs'
     },
     description: 'Discover the next generation of filmmakers. A three-day festival showcasing independent films from around the world.',
     price: 90,
