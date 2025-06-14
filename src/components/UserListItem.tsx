@@ -15,7 +15,7 @@ const UserListItem = ({ user, isFollowing, onToggleFollow }: UserListItemProps) 
     <div className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-card/50">
       <div className="flex items-center gap-4">
         <Avatar>
-          <AvatarImage src={user.avatarUrl} alt={user.name} />
+          <AvatarImage src={user.avatar} alt={user.name} />
           <AvatarFallback><UserIcon /></AvatarFallback>
         </Avatar>
         <span className="font-semibold">{user.name}</span>
