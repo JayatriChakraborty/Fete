@@ -35,7 +35,7 @@ const MyTicketsList = () => {
                         <p className="text-sm text-muted-foreground">{event.location}</p>
                     </CardContent>
                     <CardFooter>
-                        <Button className="w-full bg-brand-purple hover:bg-brand-purple/90" onClick={() => handleDownload(event.title)}>
+                        <Button className="w-full bg-brand-blue hover:bg-brand-blue/90" onClick={() => handleDownload(event.title)}>
                             <Download className="mr-2 h-4 w-4" />
                             Download Ticket
                         </Button>

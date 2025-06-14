@@ -22,7 +22,7 @@ const HostedEventsList = () => {
                         <p className="text-sm text-muted-foreground">{event.date} at {event.time}</p>
                         <p className="text-sm text-muted-foreground">{event.location}</p>
                         <Link to={`/user-event/${event.id}`}>
-                            <Button variant="link" className="p-0 h-auto mt-2 text-brand-purple">View Event</Button>
+                            <Button variant="link" className="p-0 h-auto mt-2 text-brand-blue">View Event</Button>
                         </Link>
                     </CardContent>
                 </Card>

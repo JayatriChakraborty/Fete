@@ -28,7 +28,7 @@ const LocationModal = ({ isOpen, onClose, onGiveAccess }: LocationModalProps) =>
         <DialogFooter>
           <Button variant="ghost" onClick={onClose}>Later</Button>
           <Button 
-            className="bg-gradient-to-r from-brand-purple to-brand-pink text-white" 
+            className="bg-gradient-to-r from-brand-blue to-brand-pink text-white" 
             onClick={onGiveAccess}
           >
             Give Location Access
