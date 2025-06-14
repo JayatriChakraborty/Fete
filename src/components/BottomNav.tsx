@@ -15,7 +15,7 @@ const BottomNav = () => {
           if (isCenterButton) {
             return (
               <Link key={item.name} to={item.href} className="flex-shrink-0">
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-brand-blue to-brand-pink text-white -translate-y-6 shadow-lg shadow-brand-blue/30">
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-brand-purple to-brand-pink text-white -translate-y-6 shadow-lg shadow-brand-purple/30">
                   <item.icon className="w-8 h-8" />
                 </div>
               </Link>
@@ -24,7 +24,7 @@ const BottomNav = () => {
           if (item.name === 'Profile') {
             return (
               <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors w-16">
-                <div className={cn("w-7 h-7 rounded-full overflow-hidden bg-card", isActive && "ring-2 ring-brand-blue")}>
+                <div className={cn("w-7 h-7 rounded-full overflow-hidden bg-card", isActive && "ring-2 ring-brand-purple")}>
                   <img src="https://i.pravatar.cc/150?u=james" alt="User avatar" className="w-full h-full object-cover" />
                 </div>
                 <span className={cn("text-xs", isActive && "text-foreground font-semibold")}>{item.name}</span>
@@ -33,7 +33,7 @@ const BottomNav = () => {
           }
           return (
             <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors w-16">
-              <item.icon className={cn("w-6 h-6", isActive && "text-brand-teal")} />
+              <item.icon className={cn("w-6 h-6", isActive && "text-brand-purple")} />
               <span className={cn("text-xs", isActive && "text-foreground font-semibold")}>{item.name}</span>
             </Link>
           )

@@ -154,18 +154,18 @@ export type Category = {
 };
 
 export const categories: Category[] = [
-  { name: 'Music', icon: Music, color: 'text-brand-pink', bgColor: 'bg-brand-pink/10' },
-  { name: 'Sports', icon: Trophy, color: 'text-brand-teal', bgColor: 'bg-brand-teal/10' },
-  { name: 'Art', icon: Palette, color: 'text-brand-blue', bgColor: 'bg-brand-blue/10' },
-  { name: 'Food', icon: Utensils, color: 'text-brand-yellow', bgColor: 'bg-brand-yellow/10' },
-  { name: 'Comedy', icon: Mic, color: 'text-brand-pink', bgColor: 'bg-brand-pink/10' },
-  { name: 'Movies', icon: Clapperboard, color: 'text-brand-teal', bgColor: 'bg-brand-teal/10' },
-  { name: 'Business', icon: Briefcase, color: 'text-brand-blue', bgColor: 'bg-brand-blue/10' },
-  { name: 'Tech', icon: Laptop, color: 'text-brand-yellow', bgColor: 'bg-brand-yellow/10' },
-  { name: 'Health', icon: HeartPulse, color: 'text-brand-pink', bgColor: 'bg-brand-pink/10' },
-  { name: 'Workshop', icon: PenSquare, color: 'text-brand-teal', bgColor: 'bg-brand-teal/10' },
-  { name: 'Charity', icon: HeartHandshake, color: 'text-brand-blue', bgColor: 'bg-brand-blue/10' },
-  { name: 'Party', icon: PartyPopper, color: 'text-brand-yellow', bgColor: 'bg-brand-yellow/10' },
+  { name: 'Music', icon: Music, color: 'text-red-500', bgColor: 'bg-red-500/10' },
+  { name: 'Sports', icon: Trophy, color: 'text-green-500', bgColor: 'bg-green-500/10' },
+  { name: 'Art', icon: Palette, color: 'text-blue-500', bgColor: 'bg-blue-500/10' },
+  { name: 'Food', icon: Utensils, color: 'text-yellow-500', bgColor: 'bg-yellow-500/10' },
+  { name: 'Comedy', icon: Mic, color: 'text-purple-500', bgColor: 'bg-purple-500/10' },
+  { name: 'Movies', icon: Clapperboard, color: 'text-orange-500', bgColor: 'bg-orange-500/10' },
+  { name: 'Business', icon: Briefcase, color: 'text-indigo-500', bgColor: 'bg-indigo-500/10' },
+  { name: 'Tech', icon: Laptop, color: 'text-pink-500', bgColor: 'bg-pink-500/10' },
+  { name: 'Health', icon: HeartPulse, color: 'text-rose-500', bgColor: 'bg-rose-500/10' },
+  { name: 'Workshop', icon: PenSquare, color: 'text-cyan-500', bgColor: 'bg-cyan-500/10' },
+  { name: 'Charity', icon: HeartHandshake, color: 'text-emerald-500', bgColor: 'bg-emerald-500/10' },
+  { name: 'Party', icon: PartyPopper, color: 'text-fuchsia-500', bgColor: 'bg-fuchsia-500/10' },
 ];
 
 export type NavItem = {

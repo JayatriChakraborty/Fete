@@ -20,7 +20,7 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
       </Link>
       <div className="flex-grow">
         <Link to={`/event/${event.id}`}>
-          <h3 className="font-bold text-lg text-white group-hover:text-brand-blue transition-colors">{event.title}</h3>
+          <h3 className="font-bold text-lg text-white group-hover:text-brand-purple transition-colors">{event.title}</h3>
           <p className="text-sm text-gray-300 mt-1">{event.date} at {event.time}</p>
           <div className="flex items-center gap-2 mt-2">
             <MapPin className="w-4 h-4 text-gray-300" />
@@ -29,13 +29,13 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
         </Link>
         {status === 'PENDING' && (
           <div className="mt-4 flex gap-2">
-            <Button onClick={() => setRsvpStatus(event.id, 'YES')} size="sm">Yes</Button>
+            <Button onClick={() => setRsvpStatus(event.id, 'YES')} size="sm" className="bg-green-500 hover:bg-green-600">Yes</Button>
             <Button onClick={() => setRsvpStatus(event.id, 'NO')} size="sm" variant="destructive">No</Button>
           </div>
         )}
         {status !== 'PENDING' && (
            <div className="mt-4">
-             <p className="text-sm">Your RSVP: <span className={`font-bold ${status === 'YES' ? 'text-primary' : 'text-destructive'}`}>{status}</span></p>
+             <p className="text-sm">Your RSVP: <span className={`font-bold ${status === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{status}</span></p>
            </div>
         )}
       </div>
