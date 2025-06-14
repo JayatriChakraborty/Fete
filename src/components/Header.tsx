@@ -1,11 +1,14 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Heart } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import LocationSelector from './LocationSelector';
+import { Button } from './ui/button';
 
 type HeaderProps = {
   location: string | null;
@@ -34,6 +37,13 @@ const Header = ({ location, onSetLocation }: HeaderProps) => {
             <LocationSelector onSetLocation={handleLocationSet} />
           </PopoverContent>
         </Popover>
+      </div>
+      <div>
+        <Link to="/connections">
+          <Button variant="ghost" size="icon">
+            <Heart className="h-6 w-6 text-white" />
+          </Button>
+        </Link>
       </div>
     </header>
   );

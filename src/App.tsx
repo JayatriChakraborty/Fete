@@ -16,6 +16,7 @@ import { SavedEventsProvider } from "./contexts/SavedEventsContext";
 import { RSVPProvider } from "./contexts/RSVPContext";
 import { UserEventsProvider } from "./contexts/UserEventsContext";
 import UserEventDetail from "./pages/UserEventDetail";
+import Connections from "./pages/Connections";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
                   <Route path="/user-event/:id" element={<UserEventDetail />} />
                   <Route path="/explore" element={<Explore />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/connections" element={<Connections />} />
                   <Route path="/create" element={<CreateEvent />} />
                   <Route path="/my-events" element={<MyEvents />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
