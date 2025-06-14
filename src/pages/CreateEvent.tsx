@@ -17,12 +17,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUserEvents } from "@/contexts/UserEventsContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Calendar } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
+import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/ImageUpload";
 
 const formSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters long."),
@@ -33,8 +34,12 @@ const formSchema = z.object({
   }),
   time: z.string().min(1, "Time is required."),
   price: z.coerce.number().min(0).default(0),
-  imageUrl: z.string().url("Please enter a valid image URL."),
+  imageFile: z
+    .any()
+    .refine((files) => files?.length === 1, "Image is required.")
+    .refine((files) => files?.[0]?.size <= 5000000, `Max file size is 5MB.`),
   rsvpQuestion: z.string().optional(),
+  isPrivate: z.boolean().default(false),
 });
 
 const CreateEvent = () => {
@@ -49,27 +54,58 @@ const CreateEvent = () => {
       location: "",
       time: "",
       price: 0,
-      imageUrl: "",
       rsvpQuestion: "",
+      isPrivate: false,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    let imageUrl = '/placeholder.svg';
+    if (values.imageFile && values.imageFile.length > 0) {
+      const file = values.imageFile[0];
+      imageUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
     const eventData = {
       ...values,
       date: format(values.date, "PPP"),
+      imageUrl: imageUrl,
     };
+    // @ts-ignore
+    delete eventData.imageFile;
+
     addUserEvent(eventData);
     toast.success("Event created successfully!");
     navigate("/");
   }
 
   return (
-    <div className="p-6 animate-in fade-in duration-500 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-white">Create Event</h1>
-      <p className="text-muted-foreground mt-2">Fill out the form below to create your new event.</p>
+    <div className="p-4 md:p-6 animate-in fade-in duration-500 max-w-3xl mx-auto">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-white tracking-tight">Create Your Event</h1>
+        <p className="text-muted-foreground mt-2">Bring your community together. Fill out the details below.</p>
+      </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-card p-6 md:p-10 rounded-2xl shadow-lg border border-border">
+          <FormField
+            control={form.control}
+            name="imageFile"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg font-semibold">Event Banner</FormLabel>
+                <FormControl>
+                  <ImageUpload name="imageFile" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="title"
@@ -141,7 +177,7 @@ const CreateEvent = () => {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          <Calendar className="mr-2 h-4 w-4" />
+                          <CalendarIcon className="mr-2 h-4 w-4" />
                           {field.value ? (
                             format(field.value, "PPP")
                           ) : (
@@ -151,7 +187,7 @@ const CreateEvent = () => {
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
-                      <CalendarComponent
+                      <Calendar
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
@@ -180,19 +216,7 @@ const CreateEvent = () => {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image URL</FormLabel>
-                <FormControl>
-                  <Input placeholder="https://example.com/image.png" {...field} className="bg-input"/>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          
           <FormField
             control={form.control}
             name="rsvpQuestion"
@@ -200,7 +224,7 @@ const CreateEvent = () => {
               <FormItem>
                 <FormLabel>Custom RSVP Question (Optional)</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., What's your favorite song?" {...field} className="bg-input"/>
+                  <Input placeholder="e.g., What's your dietary preference?" {...field} className="bg-input"/>
                 </FormControl>
                 <FormDescription>
                   This question will be shown in the RSVP dialog.
@@ -209,7 +233,31 @@ const CreateEvent = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Create Event</Button>
+
+          <FormField
+            control={form.control}
+            name="isPrivate"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border border-border p-4 bg-input/30">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Private Event</FormLabel>
+                  <FormDescription>
+                    Only people with a direct link can view this event.
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" size="lg" className="w-full h-12 text-lg font-bold bg-gradient-to-r from-brand-purple to-brand-pink text-white hover:opacity-90 transition-opacity transform hover:scale-[1.02]">
+            Create Event
+          </Button>
         </form>
       </Form>
     </div>
