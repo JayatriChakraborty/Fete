@@ -1,9 +1,9 @@
-
 import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Camera, LogOut, Trash2, User } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, Camera, LogOut, Trash2, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -88,6 +88,11 @@ const Profile = () => {
 
   return (
     <div className="p-6 animate-in fade-in duration-500 text-white flex flex-col items-center">
+      <Link to="/" className="absolute top-6 left-6">
+        <Button variant="ghost" size="icon">
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
+      </Link>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <button className="relative group">
