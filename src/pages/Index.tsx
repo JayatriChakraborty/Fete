@@ -7,20 +7,29 @@ import LocationModal from '@/components/LocationModal';
 import { myEvents, upcomingEvents, moreEvents, Event } from '@/lib/data';
 
 const Index = () => {
-    const [location, setLocation] = useState<string | null>(null);
+    const [location, setLocation] = useState<string | null>(() => localStorage.getItem("userLocation"));
     const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
     useEffect(() => {
-        // Use a timeout to prevent the modal from appearing instantly on hot-reload
-        const timer = setTimeout(() => {
-            const hasAskedForLocation = localStorage.getItem('hasAskedForLocation');
-            if (!hasAskedForLocation) {
-                setIsLocationModalOpen(true);
-            }
-        }, 500);
+        if (!location) {
+            // Use a timeout to prevent the modal from appearing instantly on hot-reload
+            const timer = setTimeout(() => {
+                const hasAskedForLocation = localStorage.getItem('hasAskedForLocation');
+                if (!hasAskedForLocation) {
+                    setIsLocationModalOpen(true);
+                }
+            }, 500);
 
-        return () => clearTimeout(timer);
-    }, []);
+            return () => clearTimeout(timer);
+        }
+    }, [location]);
+
+    const handleSetLocation = (newLocation: string) => {
+        setLocation(newLocation);
+        localStorage.setItem('userLocation', newLocation);
+        localStorage.setItem('hasAskedForLocation', 'true');
+        setIsLocationModalOpen(false);
+    };
 
     const handleGiveLocationAccess = () => {
         navigator.geolocation.getCurrentPosition(
@@ -28,9 +37,7 @@ const Index = () => {
                 // For demonstration, we'll just set a mock location.
                 // A real app would use a reverse geocoding API here.
                 console.log('User position:', position.coords);
-                setLocation("New York, NY");
-                localStorage.setItem('hasAskedForLocation', 'true');
-                setIsLocationModalOpen(false);
+                handleSetLocation("New York, NY");
             },
             (error) => {
                 console.error("Error getting location", error);
@@ -55,7 +62,7 @@ const Index = () => {
   
     return (
         <div className="p-6 space-y-8 animate-in fade-in duration-500">
-            <Header location={location} />
+            <Header location={location} onSetLocation={handleSetLocation} />
             <SearchBar />
             
             <YourEvents />
