@@ -15,6 +15,8 @@ export type Event = {
   description: string;
   price: number;
   isPrivate: boolean;
+  totalTickets: number;
+  ticketsSold: number;
 };
 
 export const upcomingEvents: Event[] = [
@@ -32,6 +34,8 @@ export const upcomingEvents: Event[] = [
     description: 'Experience the magic of live music under the stars. The International Band Music Concert brings together talented artists from around the globe for a night of unforgettable performances. Enjoy a diverse range of genres, from classical to rock, in the beautiful setting of Grand Park.',
     price: 75,
     isPrivate: false,
+    totalTickets: 500,
+    ticketsSold: 350,
   },
   {
     id: 2,
@@ -47,6 +51,8 @@ export const upcomingEvents: Event[] = [
     description: 'Explore the evolution of art in the modern era. This exhibition features masterpieces from renowned artists, showcasing the dynamic shifts in style and perspective that have defined the last century. A must-see for art lovers.',
     price: 50,
     isPrivate: false,
+    totalTickets: 200,
+    ticketsSold: 120,
   },
   {
     id: 3,
@@ -60,8 +66,10 @@ export const upcomingEvents: Event[] = [
       avatarUrl: 'https://i.pravatar.cc/150?u=gourmet'
     },
     description: 'Embark on a culinary journey around the world! Our food festival brings the best international cuisines to one place. Sample delicious dishes, watch live cooking demonstrations, and enjoy a vibrant atmosphere with friends and family.',
-    price: 120,
+    price: 0,
     isPrivate: true,
+    totalTickets: 1000,
+    ticketsSold: 0,
   },
 ];
 
@@ -84,6 +92,8 @@ export const moreEvents: Event[] = [
     description: 'Get ready to laugh your socks off with the best comedians in town. A night of hilarious stand-up comedy.',
     price: 25,
     isPrivate: false,
+    totalTickets: 100,
+    ticketsSold: 80,
   },
   {
     id: 5,
@@ -99,6 +109,8 @@ export const moreEvents: Event[] = [
     description: 'Discover the next generation of filmmakers. A three-day festival showcasing independent films from around the world.',
     price: 90,
     isPrivate: false,
+    totalTickets: 300,
+    ticketsSold: 150,
   },
 ];
 
