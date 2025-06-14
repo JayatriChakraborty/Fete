@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -61,7 +60,7 @@ const Index = () => {
     }
   
     return (
-        <div className="p-6 space-y-8 animate-in fade-in duration-500">
+        <div className="p-6 space-y-8">
             <Header location={location} onSetLocation={handleSetLocation} />
             <SearchBar />
             
