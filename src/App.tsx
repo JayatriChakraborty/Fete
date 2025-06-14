@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,7 +15,6 @@ import MyEvents from "./pages/MyEvents";
 import { SavedEventsProvider } from "./contexts/SavedEventsContext";
 import { RSVPProvider } from "./contexts/RSVPContext";
 import { UserEventsProvider } from "./contexts/UserEventsContext";
-import SavedEvents from "./pages/SavedEvents";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +35,6 @@ const App = () => (
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/create" element={<CreateEvent />} />
                   <Route path="/my-events" element={<MyEvents />} />
-                  <Route path="/saved" element={<SavedEvents />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
