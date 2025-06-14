@@ -7,9 +7,11 @@ export type UserEvent = Event & {
   rsvpQuestion?: string;
 };
 
+type AddUserEventParams = Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category' | 'isPrivate'> & { isPrivate?: boolean };
+
 type UserEventsContextType = {
   userEvents: UserEvent[];
-  addUserEvent: (event: Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category'>) => void;
+  addUserEvent: (event: AddUserEventParams) => void;
 };
 
 const UserEventsContext = createContext<UserEventsContextType | undefined>(undefined);
@@ -33,9 +35,13 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('userEvents', JSON.stringify(newUserEvents));
   };
 
-  const addUserEvent = (eventData: Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category'>) => {
+  const addUserEvent = (eventData: AddUserEventParams) => {
+    const completeEventData: Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category'> = {
+        ...eventData,
+        isPrivate: eventData.isPrivate ?? false,
+    };
     const newEvent: UserEvent = {
-      ...eventData,
+      ...completeEventData,
       id: Date.now(), // simple unique id
       category: 'User Created',
       organizer: { // dummy organizer for now

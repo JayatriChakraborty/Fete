@@ -1,7 +1,7 @@
 
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
-import { ArrowLeft, Share2, Calendar, MapPin, Bookmark } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, MapPin, Bookmark, Check, X } from 'lucide-react';
 import { toast } from "sonner";
 import { useSavedEvents } from '@/contexts/SavedEventsContext';
 import { cn } from '@/lib/utils';
@@ -177,21 +177,30 @@ const EventDetail = () => {
                 <DialogTrigger asChild>
                   <Button size="lg" className="w-full bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px] bg-card border-slate-800 text-white">
-                  <DialogHeader>
-                    <DialogTitle>RSVP to {event.title}</DialogTitle>
-                    {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
-                      <p className="text-sm text-muted-foreground pt-2">{(event as any).rsvpQuestion}</p>
-                    ) : (
-                      <DialogDescription>
-                        Let us know if you are planning to attend this event.
-                      </DialogDescription>
-                    )}
-                  </DialogHeader>
-                  <DialogFooter className="sm:justify-between pt-4">
-                    <Button variant="destructive" onClick={() => handleRsvpAction('NO')}>No, I can't make it</Button>
-                    <Button className="bg-green-500 hover:bg-green-600" onClick={() => handleRsvpAction('YES')}>Yes, I'm going!</Button>
-                  </DialogFooter>
+                <DialogContent className="sm:max-w-[400px] bg-card border-slate-800 text-white p-0 rounded-2xl overflow-hidden">
+                  <img src={event.imageUrl} alt={event.title} className="w-full h-48 object-cover" />
+                  <div className="p-6">
+                    <DialogHeader className="text-left space-y-2">
+                      <DialogTitle className="text-2xl font-bold">RSVP to {event.title}</DialogTitle>
+                      {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
+                        <p className="text-base text-muted-foreground pt-1">{(event as any).rsvpQuestion}</p>
+                      ) : (
+                        <DialogDescription className="text-base !mt-1">
+                          Let us know if you are planning to attend this event.
+                        </DialogDescription>
+                      )}
+                    </DialogHeader>
+                    <DialogFooter className="pt-6 flex flex-row gap-4 sm:justify-center">
+                      <Button variant="destructive" className="w-full" onClick={() => handleRsvpAction('NO')}>
+                        <X className="mr-2 h-4 w-4" />
+                        No, I can't make it
+                      </Button>
+                      <Button className="bg-green-600 hover:bg-green-700 w-full" onClick={() => handleRsvpAction('YES')}>
+                        <Check className="mr-2 h-4 w-4" />
+                        Yes, I'm going!
+                      </Button>
+                    </DialogFooter>
+                  </div>
                 </DialogContent>
               </Dialog>
             )}
