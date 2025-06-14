@@ -21,8 +21,8 @@ const Explore = () => {
   const otherEvents = filteredEvents.filter(event => !event.location.includes(userLocation));
 
   return (
-    <div className="flex flex-col h-full animate-in fade-in duration-500">
-      <div className="px-6 pt-6 space-y-8">
+    <div className="flex flex-col h-full animate-in fade-in duration-500 overflow-hidden">
+      <div className="px-6 pt-6 space-y-8 flex-shrink-0">
         <Categories 
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
