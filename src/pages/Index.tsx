@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import EventCard from '@/components/EventCard';
 import LocationModal from '@/components/LocationModal';
-import { myEvents, upcomingEvents, moreEvents } from '@/lib/data';
+import { myEvents, upcomingEvents, moreEvents, Event } from '@/lib/data';
 
 const Index = () => {
     const [location, setLocation] = useState<string | null>(null);
@@ -44,6 +44,14 @@ const Index = () => {
         localStorage.setItem('hasAskedForLocation', 'true');
         setIsLocationModalOpen(false);
     }
+
+    const myEventIds = myEvents.map(event => event.id);
+    let filteredMoreEvents = moreEvents.filter(event => !myEventIds.includes(event.id));
+
+    if (location) {
+        const userCity = location.split(',')[0];
+        filteredMoreEvents = filteredMoreEvents.filter(event => event.location.includes(userCity));
+    }
   
     return (
         <div className="p-6 space-y-8 animate-in fade-in duration-500">
@@ -52,7 +60,7 @@ const Index = () => {
             
             <YourEvents />
             <UpcomingEvents />
-            <MoreEvents />
+            <MoreEvents events={filteredMoreEvents} />
             
             <LocationModal
                 isOpen={isLocationModalOpen}
@@ -63,7 +71,7 @@ const Index = () => {
     );
 };
 
-const HorizontalEventList = ({ title, events }) => (
+const HorizontalEventList = ({ title, events }: { title: string, events: Event[] }) => (
     <section className="space-y-4">
         <h2 className="text-xl font-bold text-white">{title}</h2>
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6">
@@ -85,13 +93,14 @@ const UpcomingEvents = () => (
     <HorizontalEventList title="Upcoming Events" events={upcomingEvents} />
 );
 
-const MoreEvents = () => (
+const MoreEvents = ({ events }: { events: Event[] }) => (
     <section className="space-y-4">
         <h2 className="text-xl font-bold text-white">More Events</h2>
         <div className="flex flex-col gap-4">
-            {moreEvents.map((event) => (
+            {events.map((event) => (
                 <EventCard key={event.id} event={event} />
             ))}
+            {events.length === 0 && <p className="text-muted-foreground">No more events to show.</p>}
         </div>
     </section>
 );
