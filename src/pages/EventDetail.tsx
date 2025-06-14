@@ -179,8 +179,8 @@ const EventDetail = () => {
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[400px] bg-card border-slate-800 text-white p-0 rounded-2xl overflow-hidden">
                   <img src={event.imageUrl} alt={event.title} className="w-full h-48 object-cover" />
-                  <div className="p-6">
-                    <DialogHeader className="text-left space-y-2">
+                  <div className="p-6 text-center">
+                    <DialogHeader className="space-y-2">
                       <DialogTitle className="text-2xl font-bold">RSVP to {event.title}</DialogTitle>
                       {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
                         <p className="text-base text-muted-foreground pt-1">{(event as any).rsvpQuestion}</p>
@@ -190,7 +190,7 @@ const EventDetail = () => {
                         </DialogDescription>
                       )}
                     </DialogHeader>
-                    <DialogFooter className="pt-6 flex flex-row gap-4 sm:justify-center">
+                    <DialogFooter className="pt-6 flex flex-col sm:flex-row gap-4 sm:justify-center">
                       <Button variant="destructive" className="w-full" onClick={() => handleRsvpAction('NO')}>
                         <X className="mr-2 h-4 w-4" />
                         No, I can't make it

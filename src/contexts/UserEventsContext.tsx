@@ -7,7 +7,19 @@ export type UserEvent = Event & {
   rsvpQuestion?: string;
 };
 
-type AddUserEventParams = Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category' | 'isPrivate'> & { isPrivate?: boolean };
+// Redefining to match the form data from CreateEvent page to fix build error.
+// Most fields are optional from the form.
+type AddUserEventParams = {
+  date: string;
+  title?: string;
+  time?: string;
+  location?: string;
+  imageUrl?: string;
+  description?: string;
+  price?: number;
+  rsvpQuestion?: string;
+  isPrivate?: boolean;
+}
 
 type UserEventsContextType = {
   userEvents: UserEvent[];
@@ -36,20 +48,26 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addUserEvent = (eventData: AddUserEventParams) => {
-    const completeEventData: Omit<UserEvent, 'id' | 'organizer' | 'ticketsSold' | 'totalTickets' | 'category'> = {
-        ...eventData,
-        isPrivate: eventData.isPrivate ?? false,
-    };
+    // We construct a full UserEvent here, providing defaults for optional fields.
     const newEvent: UserEvent = {
-      ...completeEventData,
-      id: Date.now(), // simple unique id
+      id: Date.now(),
       category: 'User Created',
-      organizer: { // dummy organizer for now
+      organizer: {
         name: 'You',
         avatarUrl: 'https://github.com/shadcn.png'
       },
       ticketsSold: 0,
-      totalTickets: eventData.price > 0 ? 100 : 0, // dummy ticket count
+      // User-provided data with defaults
+      title: eventData.title || 'Untitled Event',
+      date: eventData.date,
+      time: eventData.time || 'Time not set',
+      location: eventData.location || 'Location not set',
+      imageUrl: eventData.imageUrl || '/placeholder.svg',
+      description: eventData.description || 'No description provided.',
+      price: eventData.price || 0,
+      totalTickets: (eventData.price || 0) > 0 ? 100 : 0, // dummy ticket count
+      isPrivate: eventData.isPrivate ?? false,
+      rsvpQuestion: eventData.rsvpQuestion,
     };
     updateAndStore([...userEvents, newEvent]);
   };
