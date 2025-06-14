@@ -17,7 +17,7 @@ const allCategory = { name: 'All', icon: LayoutGrid, color: 'text-gray-400', bgC
 
 const Categories = ({ selectedCategory, onSelectCategory }: CategoriesProps) => (
   <section className="space-y-4">
-    <h2 className="text-xl font-bold text-white">Categories</h2>
+    <h2 className="text-2xl font-semibold tracking-tight">Categories</h2>
     <Carousel
       opts={{
         align: "start",

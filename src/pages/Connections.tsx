@@ -35,14 +35,14 @@ const Connections = () => {
   const followingIds = following.map(u => u.id);
 
   return (
-    <div className="p-4 sm:p-6 animate-in fade-in duration-500 text-white flex flex-col items-center w-full">
+    <div className="p-4 sm:p-6 animate-in fade-in duration-500 flex flex-col items-center w-full">
       <div className="w-full max-w-sm relative flex justify-center items-center mb-6">
         <Link to="/" className="absolute left-0">
           <Button variant="ghost" size="icon">
             <ArrowLeft className="h-6 w-6" />
           </Button>
         </Link>
-        <h1 className="text-2xl font-bold text-center">Connections</h1>
+        <h1 className="text-3xl font-bold text-center tracking-tight">Connections</h1>
       </div>
 
       <Tabs defaultValue="following" className="w-full max-w-sm">

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -79,7 +80,7 @@ const Index = () => {
 
 const HorizontalEventList = ({ title, events }: { title: string, events: Event[] }) => (
     <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">{title}</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
         <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6">
             {events.map((event) => (
                 <div key={event.id} className="w-64 flex-shrink-0">
@@ -101,7 +102,7 @@ const UpcomingEvents = () => (
 
 const MoreEvents = ({ events }: { events: Event[] }) => (
     <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">More Events</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">More Events</h2>
         <div className="flex flex-col gap-4">
             {events.map((event) => (
                 <EventCard key={event.id} event={event} />
