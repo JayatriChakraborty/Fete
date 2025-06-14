@@ -26,10 +26,10 @@ const Header = ({ location, onSetLocation }: HeaderProps) => {
   return (
     <header className="flex justify-between items-center">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Hello, James!</h1>
+        <h1 className="text-2xl font-bold text-white">Hello, James!</h1>
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left p-0 border-none bg-transparent focus:outline-none focus-visible:ring-0">
+            <button className="text-sm text-muted-foreground hover:text-white transition-colors text-left p-0 border-none bg-transparent focus:outline-none focus-visible:ring-0">
               {location || "Add Your Location"}
             </button>
           </PopoverTrigger>
@@ -41,7 +41,7 @@ const Header = ({ location, onSetLocation }: HeaderProps) => {
       <div>
         <Link to="/connections">
           <Button variant="ghost" size="icon">
-            <Heart className="h-6 w-6" />
+            <Heart className="h-6 w-6 text-white" />
           </Button>
         </Link>
       </div>

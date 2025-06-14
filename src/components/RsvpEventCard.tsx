@@ -20,11 +20,11 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
       </Link>
       <div className="flex-grow">
         <Link to={`/event/${event.id}`}>
-          <h3 className="font-bold text-lg group-hover:text-brand-purple transition-colors">{event.title}</h3>
-          <p className="text-sm text-muted-foreground mt-1">{event.date} at {event.time}</p>
+          <h3 className="font-bold text-lg text-white group-hover:text-brand-purple transition-colors">{event.title}</h3>
+          <p className="text-sm text-gray-300 mt-1">{event.date} at {event.time}</p>
           <div className="flex items-center gap-2 mt-2">
-            <MapPin className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">{event.location}</span>
+            <MapPin className="w-4 h-4 text-gray-300" />
+            <span className="text-xs text-gray-300">{event.location}</span>
           </div>
         </Link>
         {status === 'PENDING' && (

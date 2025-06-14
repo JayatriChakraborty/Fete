@@ -38,7 +38,7 @@ const Explore = () => {
             </div>
           ) : (
             <div className="text-center py-10">
-              <p className="text-lg">No events found for this category.</p>
+              <p className="text-white text-lg">No events found for this category.</p>
               <p className="text-muted-foreground">Try selecting a different category.</p>
             </div>
           )}
