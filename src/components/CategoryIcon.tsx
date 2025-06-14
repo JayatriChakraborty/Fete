@@ -4,16 +4,25 @@ import { Category } from '@/lib/data';
 
 type CategoryIconProps = {
   category: Category;
+  isSelected?: boolean;
+  onClick?: () => void;
 };
 
-const CategoryIcon = ({ category }: CategoryIconProps) => {
+const CategoryIcon = ({ category, isSelected, onClick }: CategoryIconProps) => {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className={cn("w-16 h-16 rounded-2xl flex items-center justify-center", category.bgColor)}>
-        <category.icon className={cn("w-8 h-8", category.color)} />
+    <button onClick={onClick} className="flex flex-col items-center gap-2 text-center w-20 group">
+      <div className={cn(
+        "w-16 h-16 rounded-2xl flex items-center justify-center transition-all group-hover:scale-105",
+        category.bgColor,
+        isSelected ? 'ring-2 ring-white/80' : 'ring-0'
+      )}>
+        <category.icon className={cn("w-8 h-8 transition-all", category.color)} />
       </div>
-      <span className="text-sm font-medium text-foreground">{category.name}</span>
-    </div>
+      <span className={cn(
+        "text-sm font-medium truncate w-full",
+        isSelected ? 'text-white' : 'text-muted-foreground'
+      )}>{category.name}</span>
+    </button>
   );
 };
 

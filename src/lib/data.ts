@@ -1,9 +1,10 @@
 
-import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop } from 'lucide-react';
+import { Music, Trophy, Palette, Utensils, Home, PlusCircle, LucideIcon, Compass, Ticket, Bookmark, Mic, Clapperboard, Briefcase, Laptop, HeartPulse, PenSquare, HeartHandshake, PartyPopper } from 'lucide-react';
 
 export type Event = {
   id: number;
   title: string;
+  category: string;
   date: string;
   time: string;
   location: string;
@@ -23,6 +24,7 @@ export const upcomingEvents: Event[] = [
   {
     id: 1,
     title: 'International Band Music Concert',
+    category: 'Music',
     date: '14 Dec, 2024',
     time: '8:00 PM - 12:00 PM',
     location: 'Grand Park, New York',
@@ -40,6 +42,7 @@ export const upcomingEvents: Event[] = [
   {
     id: 2,
     title: 'Art Exhibition "Modern Times"',
+    category: 'Art',
     date: '20 Dec, 2024',
     time: '10:00 AM - 6:00 PM',
     location: 'Metropolitan Museum, Chicago',
@@ -57,6 +60,7 @@ export const upcomingEvents: Event[] = [
   {
     id: 3,
     title: 'Food Festival "Taste of the World"',
+    category: 'Food',
     date: '28 Dec, 2024',
     time: '12:00 PM - 10:00 PM',
     location: 'Central Park, New York',
@@ -81,6 +85,7 @@ export const moreEvents: Event[] = [
     {
     id: 4,
     title: 'Standup Comedy Night',
+    category: 'Comedy',
     date: '18 Jan, 2025',
     time: '8:00 PM - 10:00 PM',
     location: 'The Comedy Cellar, New York',
@@ -98,6 +103,7 @@ export const moreEvents: Event[] = [
   {
     id: 5,
     title: 'Indie Film Festival',
+    category: 'Movies',
     date: '22-24 Jan, 2025',
     time: 'All Day',
     location: 'Indie Cinema, Los Angeles',
@@ -131,6 +137,10 @@ export const categories: Category[] = [
   { name: 'Movies', icon: Clapperboard, color: 'text-orange-500', bgColor: 'bg-orange-500/10' },
   { name: 'Business', icon: Briefcase, color: 'text-indigo-500', bgColor: 'bg-indigo-500/10' },
   { name: 'Tech', icon: Laptop, color: 'text-pink-500', bgColor: 'bg-pink-500/10' },
+  { name: 'Health', icon: HeartPulse, color: 'text-rose-500', bgColor: 'bg-rose-500/10' },
+  { name: 'Workshop', icon: PenSquare, color: 'text-cyan-500', bgColor: 'bg-cyan-500/10' },
+  { name: 'Charity', icon: HeartHandshake, color: 'text-emerald-500', bgColor: 'bg-emerald-500/10' },
+  { name: 'Party', icon: PartyPopper, color: 'text-fuchsia-500', bgColor: 'bg-fuchsia-500/10' },
 ];
 
 export type NavItem = {
