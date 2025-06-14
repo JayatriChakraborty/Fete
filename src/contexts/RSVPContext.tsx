@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { toast } from "sonner";
 
@@ -45,11 +44,21 @@ export const RSVPProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const setRsvpStatus = (eventId: number, status: RsvpStatus) => {
-    const newRsvpEvents = rsvpEvents.map(e => 
-      e.eventId === eventId ? { ...e, status } : e
-    );
+    const eventIndex = rsvpEvents.findIndex(e => e.eventId === eventId);
+    let newRsvpEvents;
+
+    if (eventIndex > -1) {
+      // Event exists, update its status
+      newRsvpEvents = rsvpEvents.map(e => 
+        e.eventId === eventId ? { ...e, status } : e
+      );
+    } else {
+      // Event doesn't exist, add it to the list
+      newRsvpEvents = [...rsvpEvents, { eventId, status }];
+    }
+    
     updateAndStore(newRsvpEvents);
-    toast.success(`RSVP status updated to ${status}`);
+    toast.success(`Your RSVP is set to ${status}!`);
   };
 
   const removeRsvp = (eventId: number) => {

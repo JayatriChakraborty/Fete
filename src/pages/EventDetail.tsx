@@ -1,3 +1,4 @@
+
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
 import { ArrowLeft, Share2, Calendar, MapPin, Bookmark } from 'lucide-react';
@@ -5,13 +6,28 @@ import { toast } from "sonner";
 import { useSavedEvents } from '@/contexts/SavedEventsContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+import { useRSVP } from '@/contexts/RSVPContext';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useUserEvents } from '@/contexts/UserEventsContext';
 
 const EventDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toggleSaveEvent, isEventSaved } = useSavedEvents();
+  const { setRsvpStatus, getEventRsvpStatus } = useRSVP();
+  const { userEvents } = useUserEvents();
+  const [isRsvpDialogOpen, setIsRsvpDialogOpen] = useState(false);
 
-  const allEvents = [...upcomingEvents, ...moreEvents];
+  const allEvents = [...upcomingEvents, ...moreEvents, ...userEvents];
   const event = allEvents.find((e) => e.id === Number(id));
 
   if (!event) {
@@ -23,6 +39,7 @@ const EventDetail = () => {
   }
   
   const isSaved = isEventSaved(event.id);
+  const rsvpStatus = getEventRsvpStatus(event.id);
 
   const handleBack = () => {
     // This checks if there's a history stack to go back to.
@@ -53,8 +70,11 @@ const EventDetail = () => {
     toast.success("You've joined the event!");
   };
 
-  const handleRsvp = () => {
-    toast.success("You've RSVP'd to this event!");
+  const handleRsvpAction = (status: 'YES' | 'NO') => {
+    if (event) {
+      setRsvpStatus(event.id, status);
+      setIsRsvpDialogOpen(false);
+    }
   };
 
   const locationParts = event.location.split(',');
@@ -148,7 +168,33 @@ const EventDetail = () => {
         ) : (
           <div className="flex items-center gap-4">
             <Button onClick={handleJoin} size="lg" variant="ghost" className="w-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white">Join</Button>
-            <Button onClick={handleRsvp} size="lg" className="w-full bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
+            {rsvpStatus && rsvpStatus !== 'PENDING' ? (
+              <div className="w-full h-14 flex items-center justify-center text-lg font-bold rounded-full bg-card text-white">
+                RSVP'd: <span className={`ml-2 ${rsvpStatus === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{rsvpStatus}</span>
+              </div>
+            ) : (
+              <Dialog open={isRsvpDialogOpen} onOpenChange={setIsRsvpDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="w-full bg-gradient-to-r from-brand-purple/80 to-brand-pink/80 text-white backdrop-blur-sm border-2 border-white/10">RSVP</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px] bg-card border-slate-800 text-white">
+                  <DialogHeader>
+                    <DialogTitle>RSVP to {event.title}</DialogTitle>
+                    {event && 'rsvpQuestion' in event && (event as any).rsvpQuestion ? (
+                      <p className="text-sm text-muted-foreground pt-2">{(event as any).rsvpQuestion}</p>
+                    ) : (
+                      <DialogDescription>
+                        Let us know if you are planning to attend this event.
+                      </DialogDescription>
+                    )}
+                  </DialogHeader>
+                  <DialogFooter className="sm:justify-between pt-4">
+                    <Button variant="destructive" onClick={() => handleRsvpAction('NO')}>No, I can't make it</Button>
+                    <Button className="bg-green-500 hover:bg-green-600" onClick={() => handleRsvpAction('YES')}>Yes, I'm going!</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
           </div>
         )}
       </div>

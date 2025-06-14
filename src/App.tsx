@@ -14,6 +14,7 @@ import CreateEvent from "./pages/CreateEvent";
 import RSVP from "./pages/RSVP";
 import { SavedEventsProvider } from "./contexts/SavedEventsContext";
 import { RSVPProvider } from "./contexts/RSVPContext";
+import { UserEventsProvider } from "./contexts/UserEventsContext";
 import SavedEvents from "./pages/SavedEvents";
 
 const queryClient = new QueryClient();
@@ -25,21 +26,23 @@ const App = () => (
       <Sonner />
       <SavedEventsProvider>
         <RSVPProvider>
-          <BrowserRouter>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/event/:id" element={<EventDetail />} />
-                <Route path="/explore" element={<Explore />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/create" element={<CreateEvent />} />
-                <Route path="/rsvp" element={<RSVP />} />
-                <Route path="/saved" element={<SavedEvents />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Layout>
-          </BrowserRouter>
+          <UserEventsProvider>
+            <BrowserRouter>
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/event/:id" element={<EventDetail />} />
+                  <Route path="/explore" element={<Explore />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/create" element={<CreateEvent />} />
+                  <Route path="/rsvp" element={<RSVP />} />
+                  <Route path="/saved" element={<SavedEvents />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Layout>
+            </BrowserRouter>
+          </UserEventsProvider>
         </RSVPProvider>
       </SavedEventsProvider>
     </TooltipProvider>

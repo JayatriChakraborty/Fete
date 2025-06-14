@@ -10,12 +10,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { useUserEvents } from '@/contexts/UserEventsContext';
 
 type FilterStatus = 'ALL' | 'YES' | 'NO';
 
 const RSVP = () => {
   const { rsvpEvents } = useRSVP();
-  const allEvents = [...upcomingEvents, ...moreEvents];
+  const { userEvents } = useUserEvents();
+  const allEvents = [...upcomingEvents, ...moreEvents, ...userEvents];
   const [respondedFilter, setRespondedFilter] = useState<FilterStatus>('ALL');
 
   const getEventDetails = (eventId: number): Event | undefined => {
