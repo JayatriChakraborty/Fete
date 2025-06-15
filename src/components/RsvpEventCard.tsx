@@ -2,8 +2,9 @@
 import { Event } from '@/lib/data';
 import { RsvpStatus, useRSVP } from '@/contexts/RSVPContext';
 import { Button } from '@/components/ui/button';
-import { Trash2, MapPin } from 'lucide-react';
+import { Trash2, MapPin, Calendar, Check, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 type RsvpEventCardProps = {
   event: Event;
@@ -14,36 +15,54 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
   const { setRsvpStatus, removeRsvp } = useRSVP();
 
   return (
-    <div className="bg-card p-4 rounded-2xl flex flex-col sm:flex-row gap-4 relative group transition-all hover:bg-card/80">
-      <Link to={`/event/${event.id}`} className="block w-full sm:w-32 h-32 sm:h-auto flex-shrink-0">
-        <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover rounded-xl" />
+    <div className="bg-card/50 p-3 rounded-xl flex items-center gap-4 relative group transition-colors hover:bg-card">
+      <Link to={`/event/${event.id}`} className="flex-shrink-0">
+        <img src={event.imageUrl} alt={event.title} className="w-20 h-20 object-cover rounded-lg" />
       </Link>
-      <div className="flex-grow">
-        <Link to={`/event/${event.id}`}>
-          <h3 className="font-bold text-lg text-white group-hover:text-brand-purple transition-colors">{event.title}</h3>
-          <p className="text-sm text-gray-300 mt-1">{event.date} at {event.time}</p>
-          <div className="flex items-center gap-2 mt-2">
-            <MapPin className="w-4 h-4 text-gray-300" />
-            <span className="text-xs text-gray-300">{event.location}</span>
+      
+      <div className="flex-grow overflow-hidden">
+        <Link to={`/event/${event.id}`} className="space-y-1 block">
+          <h3 className="font-semibold text-base text-white group-hover:text-primary transition-colors truncate">{event.title}</h3>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Calendar className="w-3 h-3 flex-shrink-0" />
+            <span>{event.date} at {event.time}</span>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <MapPin className="w-3 h-3 flex-shrink-0" />
+            <span className="truncate">{event.location}</span>
           </div>
         </Link>
+      </div>
+
+      <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-2 pl-2">
         {status === 'PENDING' && (
-          <div className="mt-4 flex gap-2">
-            <Button onClick={() => setRsvpStatus(event.id, 'YES')} size="sm" className="bg-green-500 hover:bg-green-600">Yes</Button>
-            <Button onClick={() => setRsvpStatus(event.id, 'NO')} size="sm" variant="destructive">No</Button>
-          </div>
+          <>
+            <Button onClick={() => setRsvpStatus(event.id, 'YES')} size="sm" className="bg-green-600 hover:bg-green-700 w-full sm:w-auto rounded-full px-4">
+              <Check className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Yes</span>
+            </Button>
+            <Button onClick={() => setRsvpStatus(event.id, 'NO')} size="sm" variant="destructive" className="w-full sm:w-auto rounded-full px-4">
+              <X className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">No</span>
+            </Button>
+          </>
         )}
         {status !== 'PENDING' && (
-           <div className="mt-4">
-             <p className="text-sm">Your RSVP: <span className={`font-bold ${status === 'YES' ? 'text-green-400' : 'text-red-400'}`}>{status}</span></p>
+           <div
+                className={cn('text-sm font-semibold flex items-center gap-2 px-3 py-1.5 rounded-full', {
+                    'bg-green-500/10 text-green-400': status === 'YES',
+                    'bg-red-500/10 text-red-400': status === 'NO'
+                })}
+           >
+             {status === 'YES' ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
+             <span className="hidden sm:inline">{status}</span>
            </div>
         )}
       </div>
-      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <Button variant="ghost" size="icon" onClick={() => removeRsvp(event.id)} aria-label="Remove RSVP">
-          <Trash2 className="w-5 h-5 text-red-500" />
-        </Button>
-      </div>
+
+      <Button variant="ghost" size="icon" onClick={() => removeRsvp(event.id)} aria-label="Remove RSVP" className="absolute top-1 right-1 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-full">
+        <Trash2 className="w-4 h-4" />
+      </Button>
     </div>
   );
 };

@@ -61,40 +61,40 @@ const MyEvents = () => {
         <TabsContent value="rsvp" className="mt-6">
           <div className="space-y-8">
             <section>
-              <h2 className="text-lg font-semibold mb-4 text-brand-purple">Pending Invitations</h2>
+              <h2 className="text-lg font-semibold mb-4">Pending Invitations</h2>
               {pendingEvents.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {pendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
                 </div>
               ) : (
-                <p className="text-muted-foreground">No pending invitations.</p>
+                <p className="text-muted-foreground text-center py-8">No pending invitations.</p>
               )}
             </section>
             <section>
               <h2 className="text-lg font-semibold mb-4 text-green-400">Attending</h2>
               {attendingEvents.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {attendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
                 </div>
               ) : (
-                <p className="text-muted-foreground">You are not attending any events yet.</p>
+                <p className="text-muted-foreground text-center py-8">You are not attending any events yet.</p>
               )}
             </section>
             <section>
               <h2 className="text-lg font-semibold mb-4 text-red-400">Not Attending</h2>
               {notAttendingEvents.length > 0 ? (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {notAttendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
                 </div>
               ) : (
-                <p className="text-muted-foreground">No events marked as not attending.</p>
+                <p className="text-muted-foreground text-center py-8">No events marked as not attending.</p>
               )}
             </section>
           </div>
         </TabsContent>
         <TabsContent value="saved" className="mt-6">
             {savedEventsList.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {savedEventsList.map(event => (
                   <SavedEventListItem key={event.id} event={event} />
                 ))}
