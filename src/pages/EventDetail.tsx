@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { upcomingEvents, moreEvents } from '@/lib/data';
-import { ArrowLeft, Share2, Calendar, MapPin, Bookmark, Check, X } from 'lucide-react';
+import { ArrowLeft, Share2, Calendar, MapPin, Bookmark, Check, X, Users } from 'lucide-react';
 import { toast } from "sonner";
 import { useSavedEvents } from '@/contexts/SavedEventsContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRSVP } from '@/contexts/RSVPContext';
 import {
   Dialog,
@@ -28,6 +28,8 @@ const EventDetail = () => {
 
   const allEvents = [...upcomingEvents, ...moreEvents, ...userEvents];
   const event = allEvents.find((e) => e.id === Number(id));
+
+  const mockJoinedCount = useMemo(() => (event ? (event.id * 37 % 80) + 15 : 0), [event]);
 
   if (!event) {
     return (
@@ -119,6 +121,17 @@ const EventDetail = () => {
               <p className="text-sm text-muted-foreground">{address}</p>
             </div>
           </div>
+          {event.price === 0 && (
+            <div className="flex items-center gap-4">
+              <div className="bg-card p-3 rounded-xl">
+                <Users className="w-6 h-6 text-brand-purple" />
+              </div>
+              <div>
+                <p className="font-semibold">{mockJoinedCount} have joined</p>
+                <p className="text-sm text-muted-foreground">Join them and RSVP!</p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-4">
