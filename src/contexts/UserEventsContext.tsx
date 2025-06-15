@@ -1,10 +1,10 @@
-
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { Event } from '@/lib/data';
 
 // Extend Event type to include custom RSVP question
 export type UserEvent = Event & {
   rsvpQuestion?: string;
+  collaborators?: { name: string; avatarUrl: string }[];
 };
 
 // Redefining to match the form data from CreateEvent page to fix build error.
@@ -19,6 +19,7 @@ type AddUserEventParams = {
   price?: number;
   rsvpQuestion?: string;
   isPrivate?: boolean;
+  collaborators?: string;
 }
 
 type UserEventsContextType = {
@@ -48,6 +49,12 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const addUserEvent = (eventData: AddUserEventParams) => {
+    const collaborators = eventData.collaborators
+      ?.split(',')
+      .map(name => name.trim())
+      .filter(name => name)
+      .map(name => ({ name, avatarUrl: 'https://github.com/shadcn.png' }));
+      
     // We construct a full UserEvent here, providing defaults for optional fields.
     const newEvent: UserEvent = {
       id: Date.now(),
@@ -68,6 +75,7 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
       totalTickets: (eventData.price || 0) > 0 ? 100 : 0, // dummy ticket count
       isPrivate: eventData.isPrivate ?? false,
       rsvpQuestion: eventData.rsvpQuestion,
+      collaborators,
     };
     updateAndStore([...userEvents, newEvent]);
   };

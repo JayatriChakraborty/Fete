@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -40,6 +39,7 @@ const formSchema = z.object({
     .refine((files) => files?.[0]?.size <= 5000000, `Max file size is 5MB.`),
   rsvpQuestion: z.string().optional(),
   isPrivate: z.boolean().default(false),
+  collaborators: z.string().optional(),
 });
 
 const CreateEvent = () => {
@@ -228,6 +228,23 @@ const CreateEvent = () => {
                 </FormControl>
                 <FormDescription>
                   This question will be shown in the RSVP dialog.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="collaborators"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Invite Collaborators (Optional)</FormLabel>
+                <FormControl>
+                  <Input placeholder="e.g., Jane Doe, John Smith" {...field} className="bg-input"/>
+                </FormControl>
+                <FormDescription>
+                  Enter usernames separated by commas to invite them as co-hosts.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
