@@ -8,33 +8,24 @@ const BottomNav = () => {
 
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-card/50 backdrop-blur-lg border-t border-border z-50">
-      <div className="flex justify-around items-center h-20">
+      <div className="flex justify-around items-center h-16">
         {navItems.map((item) => {
           const isActive = location.pathname === item.href;
-          const isCenterButton = item.name === 'Create';
-          if (isCenterButton) {
-            return (
-              <Link key={item.name} to={item.href} className="flex-shrink-0">
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-brand-purple to-brand-pink text-white -translate-y-6 shadow-lg shadow-brand-purple/30">
-                  <item.icon className="w-8 h-8" />
-                </div>
-              </Link>
-            )
-          }
+          
           if (item.name === 'Profile') {
             return (
-              <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors w-16">
-                <div className={cn("w-7 h-7 rounded-full overflow-hidden bg-card", isActive && "ring-2 ring-brand-purple")}>
+              <Link key={item.name} to={item.href} className="flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground transition-colors flex-1 p-1">
+                <div className={cn("w-6 h-6 rounded-full overflow-hidden bg-card", isActive && "ring-2 ring-brand-purple")}>
                   <img src="https://i.pravatar.cc/150?u=james" alt="User avatar" className="w-full h-full object-cover" />
                 </div>
-                <span className={cn("text-xs", isActive && "text-foreground font-semibold")}>{item.name}</span>
+                <span className={cn("text-[10px] leading-tight", isActive && "text-foreground font-semibold")}>{item.name}</span>
               </Link>
             )
           }
           return (
-            <Link key={item.name} to={item.href} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-foreground transition-colors w-16">
-              <item.icon className={cn("w-6 h-6", isActive && "text-brand-purple")} />
-              <span className={cn("text-xs", isActive && "text-foreground font-semibold")}>{item.name}</span>
+            <Link key={item.name} to={item.href} className="flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground transition-colors flex-1 p-1">
+              <item.icon className={cn("w-5 h-5", isActive && "text-brand-purple")} />
+              <span className={cn("text-[10px] leading-tight", isActive && "text-foreground font-semibold")}>{item.name}</span>
             </Link>
           )
         })}
