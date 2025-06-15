@@ -8,11 +8,12 @@ import {
 import LocationSelector from './LocationSelector';
 
 type HeaderProps = {
+  userName: string | null | undefined;
   location: string | null;
   onSetLocation: (location: string) => void;
 };
 
-const Header = ({ location, onSetLocation }: HeaderProps) => {
+const Header = ({ userName, location, onSetLocation }: HeaderProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleLocationSet = (newLocation: string) => {
@@ -23,7 +24,7 @@ const Header = ({ location, onSetLocation }: HeaderProps) => {
   return (
     <header>
       <div>
-        <h1 className="text-2xl font-bold text-white">Hello, James!</h1>
+        <h1 className="text-2xl font-bold text-white">Hello, {userName || 'User'}!</h1>
         <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
           <PopoverTrigger asChild>
             <button className="text-sm text-muted-foreground hover:text-white transition-colors text-left p-0 border-none bg-transparent focus:outline-none focus-visible:ring-0">
