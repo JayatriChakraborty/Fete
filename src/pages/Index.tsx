@@ -1,17 +1,21 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import EventCard from '@/components/EventCard';
 import LocationModal from '@/components/LocationModal';
 import { myEvents, upcomingEvents, moreEvents, Event } from '@/lib/data';
+import { useAuth } from '@/contexts/AuthContext';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
     const [location, setLocation] = useState<string | null>(() => localStorage.getItem("userLocation"));
     const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+    const { currentUser, loading } = useAuth();
 
     useEffect(() => {
         if (!location) {
-            // Use a timeout to prevent the modal from appearing instantly on hot-reload
             const timer = setTimeout(() => {
                 const hasAskedForLocation = localStorage.getItem('hasAskedForLocation');
                 if (!hasAskedForLocation) {
@@ -59,9 +63,24 @@ const Index = () => {
         filteredMoreEvents = filteredMoreEvents.filter(event => event.location.includes(userCity));
     }
   
+    if (loading) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <p>Loading...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="p-6 space-y-8">
-            <Header location={location} onSetLocation={handleSetLocation} />
+            <div className="flex justify-between items-center">
+                <Header location={location} onSetLocation={handleSetLocation} />
+                {!currentUser && (
+                    <Button asChild variant="ghost">
+                        <Link to="/login">Login</Link>
+                    </Button>
+                )}
+            </div>
             <SearchBar />
             
             <YourEvents />
