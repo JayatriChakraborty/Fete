@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -88,8 +87,7 @@ const CreateEvent = () => {
   return (
     <div className="p-4 md:p-6 animate-in fade-in duration-500 max-w-3xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-white tracking-tight">Create Your Event</h1>
-        <p className="text-muted-foreground mt-2">Bring your community together. Fill out the details below.</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Create Your Event</h1>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-card p-6 md:p-10 rounded-2xl shadow-lg border border-border">
