@@ -96,18 +96,41 @@ const UserEventDetail = () => {
                         </CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <h3 className="font-semibold mb-3 text-white">Attending</h3>
-                        <div className="space-y-3">
-                          {attending.map((person) => (
-                            <div key={person.name} className="flex items-center gap-3">
-                              <Avatar className="h-9 w-9">
-                                <AvatarImage src={person.avatarUrl} alt={person.name} />
-                                <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
-                              </Avatar>
-                              <p className="text-sm font-medium text-white">{person.name}</p>
-                            </div>
-                          ))}
-                           {attending.length === 0 && <p className="text-muted-foreground text-sm">No one is attending yet.</p>}
+                        <div>
+                          <h3 className="font-semibold mb-3 text-white">Attending ({attending.length})</h3>
+                          <div className="space-y-3">
+                            {attending.length > 0 ? (
+                              attending.map((person) => (
+                                <div key={person.name} className="flex items-center gap-3">
+                                  <Avatar className="h-9 w-9">
+                                    <AvatarImage src={person.avatarUrl} alt={person.name} />
+                                    <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
+                                  </Avatar>
+                                  <p className="text-sm font-medium text-white">{person.name}</p>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-muted-foreground text-sm">No one is attending yet.</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="mt-6">
+                          <h3 className="font-semibold mb-3 text-white">Not Attending ({notAttending.length})</h3>
+                          <div className="space-y-3">
+                            {notAttending.length > 0 ? (
+                              notAttending.map((person) => (
+                                <div key={person.name} className="flex items-center gap-3">
+                                  <Avatar className="h-9 w-9">
+                                    <AvatarImage src={person.avatarUrl} alt={person.name} />
+                                    <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
+                                  </Avatar>
+                                  <p className="text-sm font-medium text-muted-foreground line-through">{person.name}</p>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-muted-foreground text-sm">No one has declined yet.</p>
+                            )}
+                          </div>
                         </div>
                       </CardContent>
                     </Card>

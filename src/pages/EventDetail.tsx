@@ -22,7 +22,7 @@ const EventDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toggleSaveEvent, isEventSaved } = useSavedEvents();
-  const { setRsvpStatus, getEventRsvpStatus } = useRSVP();
+  const { setRsvpStatus, getEventRsvpStatus, removeRsvp } = useRSVP();
   const { userEvents } = useUserEvents();
   const [isRsvpDialogOpen, setIsRsvpDialogOpen] = useState(false);
 
@@ -57,6 +57,13 @@ const EventDetail = () => {
 
   const handleSave = () => {
     toggleSaveEvent(event.id);
+  };
+
+  const handleOptOut = () => {
+    if (event) {
+      toggleSaveEvent(event.id);
+      removeRsvp(event.id);
+    }
   };
 
   const handleBuyTicket = () => {
@@ -213,7 +220,7 @@ const EventDetail = () => {
                     </Dialog>
                   )}
                 </div>
-                <Button onClick={handleSave} size="lg" variant="outline" className="flex-1 h-14">
+                <Button onClick={handleOptOut} size="lg" variant="outline" className="flex-1 h-14">
                   Opt Out
                 </Button>
               </div>
