@@ -34,16 +34,26 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
         </Link>
       </div>
 
-      <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-2 pl-2">
+      <div className="flex-shrink-0 flex flex-row items-center gap-2 pl-2">
         {status === 'PENDING' && (
           <>
-            <Button onClick={() => setRsvpStatus(event.id, 'YES')} size="sm" className="bg-green-600 hover:bg-green-700 w-full sm:w-auto rounded-full px-4">
-              <Check className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">Yes</span>
+            <Button
+              onClick={() => setRsvpStatus(event.id, 'YES')}
+              variant="outline"
+              size="sm"
+              className="rounded-full border-green-500 text-green-400 hover:bg-green-500 hover:text-white p-2 sm:px-3"
+            >
+              <Check className="w-4 h-4" />
+              <span className="hidden sm:inline sm:ml-1">Yes</span>
             </Button>
-            <Button onClick={() => setRsvpStatus(event.id, 'NO')} size="sm" variant="destructive" className="w-full sm:w-auto rounded-full px-4">
-              <X className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">No</span>
+            <Button
+              onClick={() => setRsvpStatus(event.id, 'NO')}
+              variant="outline"
+              size="sm"
+              className="rounded-full border-red-500 text-red-400 hover:bg-red-500 hover:text-white p-2 sm:px-3"
+            >
+              <X className="w-4 h-4" />
+              <span className="hidden sm:inline sm:ml-1">No</span>
             </Button>
           </>
         )}
