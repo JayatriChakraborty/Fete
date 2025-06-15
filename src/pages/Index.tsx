@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -55,11 +56,20 @@ const Index = () => {
     }
 
     const myEventIds = myEvents.map(event => event.id);
-    let filteredMoreEvents = moreEvents.filter(event => !myEventIds.includes(event.id));
+    const availableUpcomingEvents = upcomingEvents.filter(event => !myEventIds.includes(event.id));
+    const availableMoreEvents = moreEvents.filter(event => !myEventIds.includes(event.id));
+
+    let filteredUpcomingEvents = availableUpcomingEvents;
+    let filteredMoreEvents = availableMoreEvents;
 
     if (location) {
-        const userCity = location.split(',')[0];
-        filteredMoreEvents = filteredMoreEvents.filter(event => event.location.includes(userCity));
+        const userCity = location.split(',')[0].trim();
+        
+        const localUpcoming = availableUpcomingEvents.filter(event => event.location.includes(userCity));
+        const nonLocalUpcoming = availableUpcomingEvents.filter(event => !event.location.includes(userCity));
+
+        filteredUpcomingEvents = localUpcoming;
+        filteredMoreEvents = [...nonLocalUpcoming, ...availableMoreEvents];
     }
   
     if (loading) {
@@ -78,7 +88,7 @@ const Index = () => {
             <SearchBar />
             
             <YourEvents />
-            <UpcomingEvents />
+            <UpcomingEvents events={filteredUpcomingEvents} />
             <MoreEvents events={filteredMoreEvents} />
             
             <LocationModal
@@ -108,8 +118,8 @@ const YourEvents = () => (
     <HorizontalEventList title="Your Events" events={myEvents} />
 );
 
-const UpcomingEvents = () => (
-    <HorizontalEventList title="Upcoming Events" events={upcomingEvents} />
+const UpcomingEvents = ({ events }: { events: Event[] }) => (
+    <HorizontalEventList title="Upcoming Events" events={events} />
 );
 
 const MoreEvents = ({ events }: { events: Event[] }) => (
