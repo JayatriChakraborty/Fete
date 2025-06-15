@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
+import SearchBar from '@/components/SearchBar';
 import EventCard from '@/components/EventCard';
 import LocationModal from '@/components/LocationModal';
 import { myEvents, upcomingEvents, moreEvents, Event } from '@/lib/data';
@@ -71,7 +72,10 @@ const Index = () => {
 
     return (
         <div className="p-6 space-y-8">
-            <Header userName={currentUser?.displayName} location={location} onSetLocation={handleSetLocation} />
+            <div className="flex justify-between items-center">
+                <Header userName={currentUser?.displayName} location={location} onSetLocation={handleSetLocation} />
+            </div>
+            <SearchBar />
             
             <YourEvents />
             <UpcomingEvents />
