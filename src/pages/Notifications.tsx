@@ -1,13 +1,12 @@
-
 import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, CalendarPlus } from "lucide-react";
+import { ArrowLeft, UserPlus, CalendarPlus, Ticket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from 'date-fns';
 
 // Data and types are included here as creating new files is not possible in this context.
-type NotificationType = "NEW_FOLLOWER" | "NEW_EVENT";
+type NotificationType = "NEW_FOLLOWER" | "NEW_EVENT" | "LOW_STOCK";
 
 interface Notification {
   id: string;
@@ -43,6 +42,14 @@ const mockNotifications: Notification[] = [
     read: true,
     relatedId: '2',
   },
+  {
+    id: "4",
+    type: "LOW_STOCK",
+    text: "Tickets for 'Standup Comedy Night' are almost sold out! Grab yours now.",
+    timestamp: "2025-06-15T11:00:00Z",
+    read: false,
+    relatedId: '4',
+  },
 ];
 
 
@@ -52,6 +59,8 @@ const NotificationIcon = ({ type }: { type: Notification['type'] }) => {
             return <UserPlus className="h-6 w-6 text-blue-500" />;
         case "NEW_EVENT":
             return <CalendarPlus className="h-6 w-6 text-brand-purple" />;
+        case "LOW_STOCK":
+            return <Ticket className="h-6 w-6 text-orange-500" />;
         default:
             return null;
     }
