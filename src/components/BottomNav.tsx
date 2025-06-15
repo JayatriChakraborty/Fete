@@ -1,7 +1,8 @@
+
 import { navItems, moreNavItems } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { MoreHorizontal, LogOut, LogIn } from 'lucide-react';
+import { MoreHorizontal, LogOut, LogIn, Ticket } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,7 +32,7 @@ const BottomNav = () => {
   };
 
   const moreNavPaths = moreNavItems.map(item => item.href);
-  const isMoreActive = moreNavPaths.includes(location.pathname);
+  const isMoreActive = moreNavPaths.includes(location.pathname) || location.pathname === '/my-tickets';
 
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm bg-card/50 backdrop-blur-lg border-t border-border z-50">
@@ -75,6 +76,12 @@ const BottomNav = () => {
                 </DropdownMenuItem>
               )
             })}
+            <DropdownMenuItem className="p-0 focus:bg-accent/50">
+              <Link to="/my-tickets" className="flex items-center gap-3 w-full px-3 py-2">
+                <Ticket className={cn("w-5 h-5 text-muted-foreground", location.pathname === "/my-tickets" && "text-brand-purple")} />
+                <span className={cn("font-medium", location.pathname === "/my-tickets" && "text-brand-purple")}>My Tickets</span>
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             {currentUser ? (
               <DropdownMenuItem onClick={handleLogout} className="p-0 focus:bg-accent/50 cursor-pointer text-red-500 focus:text-red-500">

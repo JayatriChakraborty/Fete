@@ -15,11 +15,12 @@ const HostedEventsList = () => {
     return (
         <div className="space-y-4">
             {userEvents.map(event => (
-                <Card key={event.id} className="bg-card">
+                <Card key={event.id} className="bg-card overflow-hidden">
+                    <img src={event.imageUrl || '/placeholder.svg'} alt={event.title} className="w-full h-32 object-cover" />
                     <CardHeader>
                         <CardTitle className="text-base font-semibold">{event.title}</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="pt-0">
                         <p className="text-sm text-muted-foreground">{event.date} at {event.time}</p>
                         <p className="text-sm text-muted-foreground">{event.location}</p>
                     </CardContent>

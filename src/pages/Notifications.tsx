@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, CalendarPlus, Ticket, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import { UserPlus, CalendarPlus, Ticket, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from 'date-fns';
@@ -115,12 +114,7 @@ const Notifications = () => {
 
   return (
     <div className="p-4 sm:p-6 animate-in fade-in duration-500 text-white flex flex-col items-center w-full">
-      <div className="w-full max-w-sm relative flex justify-center items-center mb-6">
-        <Link to="/" className="absolute left-0">
-          <Button variant="ghost" size="icon">
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-        </Link>
+      <div className="w-full max-w-sm flex justify-start items-center mb-6">
         <h1 className="text-2xl font-bold text-center">Notifications</h1>
       </div>
       <div className="w-full max-w-sm mt-2 space-y-2">
