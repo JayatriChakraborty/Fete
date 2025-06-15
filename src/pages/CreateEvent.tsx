@@ -73,7 +73,7 @@ const CreateEvent = () => {
 
     const eventData = {
       ...values,
-      date: format(values.date, "PPP"),
+      date: format(values.date, "dd/MM/yyyy"),
       imageUrl: imageUrl,
     };
     // @ts-ignore
@@ -178,9 +178,9 @@ const CreateEvent = () => {
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {field.value ? (
-                            <span className="truncate">{format(field.value, "PPP")}</span>
+                            <span className="truncate">{format(field.value, "dd/MM/yyyy")}</span>
                           ) : (
-                            <span>Pick a date</span>
+                            <span></span>
                           )}
                         </Button>
                       </FormControl>
