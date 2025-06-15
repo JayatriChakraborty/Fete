@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SavedEventListItem from "@/components/SavedEventListItem";
+import { AnimatePresence } from "framer-motion";
 
 const allEvents = [...upcomingEvents, ...myEvents, ...moreEvents];
 
@@ -62,46 +63,50 @@ const MyEvents = () => {
           <div className="space-y-8">
             <section>
               <h2 className="text-lg font-semibold mb-4">Pending Invitations</h2>
-              {pendingEvents.length > 0 ? (
-                <div className="space-y-3">
+              <div className="space-y-3">
+                <AnimatePresence>
                   {pendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
-                </div>
-              ) : (
-                <p className="text-muted-foreground text-center py-8">No pending invitations.</p>
-              )}
+                </AnimatePresence>
+                {pendingEvents.length === 0 && (
+                  <p className="text-muted-foreground text-center py-8">No pending invitations.</p>
+                )}
+              </div>
             </section>
             <section>
               <h2 className="text-lg font-semibold mb-4 text-green-400">Attending</h2>
-              {attendingEvents.length > 0 ? (
-                <div className="space-y-3">
+              <div className="space-y-3">
+                <AnimatePresence>
                   {attendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
-                </div>
-              ) : (
-                <p className="text-muted-foreground text-center py-8">You are not attending any events yet.</p>
-              )}
+                </AnimatePresence>
+                {attendingEvents.length === 0 && (
+                  <p className="text-muted-foreground text-center py-8">You are not attending any events yet.</p>
+                )}
+              </div>
             </section>
             <section>
               <h2 className="text-lg font-semibold mb-4 text-red-400">Not Attending</h2>
-              {notAttendingEvents.length > 0 ? (
-                <div className="space-y-3">
+              <div className="space-y-3">
+                <AnimatePresence>
                   {notAttendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
-                </div>
-              ) : (
-                <p className="text-muted-foreground text-center py-8">No events marked as not attending.</p>
-              )}
+                </AnimatePresence>
+                {notAttendingEvents.length === 0 && (
+                  <p className="text-muted-foreground text-center py-8">No events marked as not attending.</p>
+                )}
+              </div>
             </section>
           </div>
         </TabsContent>
         <TabsContent value="saved" className="mt-6">
-            {savedEventsList.length > 0 ? (
-              <div className="space-y-2">
+            <div className="space-y-2">
+              <AnimatePresence>
                 {savedEventsList.map(event => (
                   <SavedEventListItem key={event.id} event={event} />
                 ))}
-              </div>
-            ) : (
-              <p className="text-muted-foreground text-center mt-10">You have no saved events.</p>
-            )}
+              </AnimatePresence>
+              {savedEventsList.length === 0 && (
+                <p className="text-muted-foreground text-center mt-10">You have no saved events.</p>
+              )}
+            </div>
         </TabsContent>
       </Tabs>
     </div>

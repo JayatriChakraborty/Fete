@@ -2,9 +2,10 @@
 import { Event } from '@/lib/data';
 import { RsvpStatus, useRSVP } from '@/contexts/RSVPContext';
 import { Button } from '@/components/ui/button';
-import { Trash2, MapPin, Calendar, Check, X } from 'lucide-react';
+import { MapPin, Calendar, Check, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { motion, type PanInfo } from 'framer-motion';
 
 type RsvpEventCardProps = {
   event: Event;
@@ -14,8 +15,21 @@ type RsvpEventCardProps = {
 const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
   const { setRsvpStatus, removeRsvp } = useRSVP();
 
+  const handleDragEnd = (e: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x < -100) {
+      removeRsvp(event.id);
+    }
+  };
+
   return (
-    <div className="bg-card/50 p-3 rounded-xl flex items-center gap-4 relative group transition-colors hover:bg-card">
+    <motion.div
+      layout
+      exit={{ opacity: 0, x: -100, transition: { duration: 0.2 } }}
+      drag="x"
+      dragConstraints={{ left: 0, right: 0 }}
+      onDragEnd={handleDragEnd}
+      className="bg-card/50 p-3 rounded-xl flex items-center gap-4 relative group transition-colors hover:bg-card cursor-grab active:cursor-grabbing"
+    >
       <Link to={`/event/${event.id}`} className="flex-shrink-0">
         <img src={event.imageUrl} alt={event.title} className="w-20 h-20 object-cover rounded-lg" />
       </Link>
@@ -69,11 +83,7 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
            </div>
         )}
       </div>
-
-      <Button variant="ghost" size="icon" onClick={() => removeRsvp(event.id)} aria-label="Remove RSVP" className="absolute top-1 right-1 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-full">
-        <Trash2 className="w-4 h-4" />
-      </Button>
-    </div>
+    </motion.div>
   );
 };
 
