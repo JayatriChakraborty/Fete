@@ -21,6 +21,7 @@ export default {
 		extend: {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        display: ['Syne', 'sans-serif'],
       },
 			colors: {
 				border: 'hsl(var(--border))',
@@ -32,8 +33,8 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
-        "brand-purple": "#58a6ff",
-        "brand-pink": "#39d39f",
+        "brand-purple": "#6C56F7",
+        "brand-pink": "#D437F7",
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))'
