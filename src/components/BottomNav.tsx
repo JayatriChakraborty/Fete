@@ -1,7 +1,15 @@
 
-import { navItems } from '@/lib/data';
+import { Compass, Plus, Bell, User, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link, useLocation } from 'react-router-dom';
+
+const navItems = [
+  { name: 'Explore', href: '/explore', icon: Compass },
+  { name: 'Connections', href: '/connections', icon: Users },
+  { name: 'Create', href: '/create', icon: Plus },
+  { name: 'Notifications', href: '/notifications', icon: Bell },
+  { name: 'Profile', href: '/profile', icon: User },
+];
 
 const BottomNav = () => {
   const location = useLocation();

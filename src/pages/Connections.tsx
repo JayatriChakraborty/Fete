@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,6 +18,7 @@ const initialFollowing = [allUsers[0], allUsers[1], allUsers[3]];
 
 const Connections = () => {
   const [following, setFollowing] = useState(initialFollowing);
+  const navigate = useNavigate();
 
   const handleToggleFollow = (userId: number) => {
     setFollowing(currentFollowing => {
@@ -37,11 +37,9 @@ const Connections = () => {
   return (
     <div className="p-4 sm:p-6 animate-in fade-in duration-500 text-white flex flex-col items-center w-full">
       <div className="w-full max-w-sm relative flex justify-center items-center mb-6">
-        <Link to="/" className="absolute left-0">
-          <Button variant="ghost" size="icon">
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" className="absolute left-0" onClick={() => navigate(-1)}>
+          <ArrowLeft className="h-6 w-6" />
+        </Button>
         <h1 className="text-2xl font-bold text-center">Connections</h1>
       </div>
 

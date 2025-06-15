@@ -20,6 +20,7 @@ import Connections from "./pages/Connections";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Notifications from "./pages/Notifications";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
                     <Route path="/connections" element={<PrivateRoute><Connections /></PrivateRoute>} />
                     <Route path="/create" element={<PrivateRoute><CreateEvent /></PrivateRoute>} />
                     <Route path="/my-events" element={<PrivateRoute><MyEvents /></PrivateRoute>} />
+                    <Route path="/notifications" element={<PrivateRoute><Notifications /></PrivateRoute>} />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
