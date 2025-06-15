@@ -34,7 +34,7 @@ const RsvpEventCard = ({ event, status }: RsvpEventCardProps) => {
         </Link>
       </div>
 
-      <div className="flex-shrink-0 flex flex-row items-center gap-2 pl-2">
+      <div className="flex-shrink-0 flex flex-col items-center gap-2 pl-2">
         {status === 'PENDING' && (
           <>
             <Button
