@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -8,11 +7,13 @@ import { myEvents, upcomingEvents, moreEvents, Event } from '@/lib/data';
 import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useUserEvents } from '@/contexts/UserEventsContext';
 
 const Index = () => {
     const [location, setLocation] = useState<string | null>(() => localStorage.getItem("userLocation"));
     const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
     const { currentUser, loading } = useAuth();
+    const { userEvents } = useUserEvents();
 
     useEffect(() => {
         if (!location) {
@@ -87,7 +88,7 @@ const Index = () => {
             </div>
             <SearchBar />
             
-            <YourEvents />
+            <YourEvents events={userEvents} />
             <UpcomingEvents events={filteredUpcomingEvents} />
             <MoreEvents events={filteredMoreEvents} />
             
@@ -114,8 +115,8 @@ const HorizontalEventList = ({ title, events }: { title: string, events: Event[]
     </section>
 );
 
-const YourEvents = () => (
-    <HorizontalEventList title="Your Events" events={myEvents} />
+const YourEvents = ({ events }: { events: Event[] }) => (
+    <HorizontalEventList title="Your Events" events={[...myEvents, ...events]} />
 );
 
 const UpcomingEvents = ({ events }: { events: Event[] }) => (

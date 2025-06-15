@@ -26,6 +26,7 @@ type AddUserEventParams = {
 type UserEventsContextType = {
   userEvents: UserEvent[];
   addUserEvent: (event: AddUserEventParams) => void;
+  deleteUserEvent: (eventId: number) => void;
 };
 
 const UserEventsContext = createContext<UserEventsContextType | undefined>(undefined);
@@ -91,8 +92,13 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
     updateAndStore([...userEvents, newEvent]);
   };
 
+  const deleteUserEvent = (eventId: number) => {
+    const updatedEvents = userEvents.filter(event => event.id !== eventId);
+    updateAndStore(updatedEvents);
+  };
+
   return (
-    <UserEventsContext.Provider value={{ userEvents, addUserEvent }}>
+    <UserEventsContext.Provider value={{ userEvents, addUserEvent, deleteUserEvent }}>
       {children}
     </UserEventsContext.Provider>
   );
