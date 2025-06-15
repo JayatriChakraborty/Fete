@@ -21,10 +21,25 @@ const Profile = () => {
       </div>
 
       <Tabs defaultValue="profile" className="w-full max-w-sm">
-        <TabsList className="grid w-full grid-cols-3 bg-card">
-          <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="hosted">Hosted</TabsTrigger>
-          <TabsTrigger value="tickets">Tickets</TabsTrigger>
+        <TabsList className="w-full justify-start rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger
+            value="profile"
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Profile
+          </TabsTrigger>
+          <TabsTrigger
+            value="hosted"
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Hosted
+          </TabsTrigger>
+          <TabsTrigger
+            value="tickets"
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Tickets
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="profile" className="mt-6">
           <EditProfileForm />
