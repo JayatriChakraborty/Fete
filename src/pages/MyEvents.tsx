@@ -4,10 +4,10 @@ import { useRSVP } from "@/contexts/RSVPContext";
 import { useSavedEvents } from "@/contexts/SavedEventsContext";
 import { upcomingEvents, myEvents, moreEvents } from "@/lib/data";
 import RsvpEventCard from "@/components/RsvpEventCard";
-import EventCard from "@/components/EventCard";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SavedEventListItem from "@/components/SavedEventListItem";
 
 const allEvents = [...upcomingEvents, ...myEvents, ...moreEvents];
 
@@ -44,14 +44,24 @@ const MyEvents = () => {
       </div>
 
       <Tabs defaultValue="rsvp" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-card">
-          <TabsTrigger value="rsvp">RSVP</TabsTrigger>
-          <TabsTrigger value="saved">Saved</TabsTrigger>
+        <TabsList className="w-full justify-start rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger 
+            value="rsvp" 
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            RSVP
+          </TabsTrigger>
+          <TabsTrigger 
+            value="saved" 
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Saved
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="rsvp" className="mt-6">
           <div className="space-y-8">
             <section>
-              <h2 className="text-xl font-semibold mb-4 text-brand-purple">Pending Invitations</h2>
+              <h2 className="text-lg font-semibold mb-4 text-brand-purple">Pending Invitations</h2>
               {pendingEvents.length > 0 ? (
                 <div className="space-y-4">
                   {pendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
@@ -61,7 +71,7 @@ const MyEvents = () => {
               )}
             </section>
             <section>
-              <h2 className="text-xl font-semibold mb-4 text-green-400">Attending</h2>
+              <h2 className="text-lg font-semibold mb-4 text-green-400">Attending</h2>
               {attendingEvents.length > 0 ? (
                 <div className="space-y-4">
                   {attendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
@@ -71,7 +81,7 @@ const MyEvents = () => {
               )}
             </section>
             <section>
-              <h2 className="text-xl font-semibold mb-4 text-red-400">Not Attending</h2>
+              <h2 className="text-lg font-semibold mb-4 text-red-400">Not Attending</h2>
               {notAttendingEvents.length > 0 ? (
                 <div className="space-y-4">
                   {notAttendingEvents.map(({ event, status }) => <RsvpEventCard key={event.id} event={event} status={status} />)}
@@ -84,9 +94,9 @@ const MyEvents = () => {
         </TabsContent>
         <TabsContent value="saved" className="mt-6">
             {savedEventsList.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6">
+              <div className="space-y-4">
                 {savedEventsList.map(event => (
-                  <EventCard key={event.id} event={event} />
+                  <SavedEventListItem key={event.id} event={event} />
                 ))}
               </div>
             ) : (
