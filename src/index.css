@@ -5,33 +5,33 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%; /* #0D0D0D */
-    --foreground: 0 0% 98%; /* #FAFAFA */
+    --background: 222 47% 11%; /* #0d1117 */
+    --foreground: 210 17% 82%; /* #c9d1d9 */
 
-    --card: 0 0% 12%; /* #1E1E1E */
-    --card-foreground: 0 0% 98%;
+    --card: 222 44% 16%; /* #161b22 */
+    --card-foreground: 210 17% 82%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 44% 16%;
+    --popover-foreground: 210 17% 82%;
 
-    --primary: 244 100% 61%; /* #4A3AFF */
-    --primary-foreground: 0 0% 98%;
+    --primary: 212 92% 59%; /* #58a6ff */
+    --primary-foreground: 222 47% 11%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 216 12% 24%; /* #30363d */
+    --secondary-foreground: 210 17% 82%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 63%; /* #A0A0A0 */
+    --muted: 216 12% 24%; /* #30363d */
+    --muted-foreground: 215 13% 58%; /* #8b949e */
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 216 12% 24%; /* #30363d */
+    --accent-foreground: 210 17% 82%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 244 100% 61%;
+    --border: 216 12% 24%; /* #30363d */
+    --input: 222 44% 16%; /* #161b22 */
+    --ring: 212 92% 59%; /* #58a6ff */
 
     --radius: 0.5rem;
   }
