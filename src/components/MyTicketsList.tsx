@@ -3,13 +3,22 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { upcomingEvents } from "@/lib/data";
+import { upcomingEvents, myEvents, moreEvents } from "@/lib/data";
+import { useRSVP } from "@/contexts/RSVPContext";
 
-// Mock data: let's assume the user has tickets for the first two upcoming events
-const myTickets = upcomingEvents.slice(0, 2);
+const allEvents = [...upcomingEvents, ...myEvents, ...moreEvents];
 
 const MyTicketsList = () => {
     const { toast } = useToast();
+    const { rsvpEvents } = useRSVP();
+
+    const attendingEventIds = rsvpEvents
+        .filter(rsvp => rsvp.status === 'YES')
+        .map(rsvp => rsvp.eventId);
+
+    const myTickets = allEvents.filter(event => 
+        attendingEventIds.includes(event.id) && event.price > 0
+    );
 
     const handleDownload = (eventName: string) => {
         toast({
@@ -20,7 +29,7 @@ const MyTicketsList = () => {
     };
     
     if (myTickets.length === 0) {
-        return <p className="text-muted-foreground text-center mt-10">You have no tickets.</p>
+        return <p className="text-muted-foreground text-center mt-10">You have no tickets for paid events.</p>
     }
 
     return (

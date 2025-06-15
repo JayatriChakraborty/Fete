@@ -47,11 +47,11 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <SavedEventsProvider>
-        <RSVPProvider>
-          <UserEventsProvider>
-            <BrowserRouter>
-              <AuthProvider>
+      <AuthProvider>
+        <SavedEventsProvider>
+          <RSVPProvider>
+            <UserEventsProvider>
+              <BrowserRouter>
                 <Layout>
                   <Routes>
                     <Route path="/" element={<Index />} />
@@ -69,11 +69,11 @@ const App = () => (
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Layout>
-              </AuthProvider>
-            </BrowserRouter>
-          </UserEventsProvider>
-        </RSVPProvider>
-      </SavedEventsProvider>
+              </BrowserRouter>
+            </UserEventsProvider>
+          </RSVPProvider>
+        </SavedEventsProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

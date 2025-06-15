@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { Event } from '@/lib/data';
+import { useAuth } from './AuthContext';
 
 // Extend Event type to include custom RSVP question
 export type UserEvent = Event & {
@@ -31,21 +32,31 @@ const UserEventsContext = createContext<UserEventsContextType | undefined>(undef
 
 export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
   const [userEvents, setUserEvents] = useState<UserEvent[]>([]);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    try {
-      const storedUserEvents = localStorage.getItem('userEvents');
-      if (storedUserEvents) {
-        setUserEvents(JSON.parse(storedUserEvents));
+    if (currentUser) {
+      try {
+        const storedUserEvents = localStorage.getItem(`userEvents_${currentUser.uid}`);
+        if (storedUserEvents) {
+          setUserEvents(JSON.parse(storedUserEvents));
+        } else {
+          setUserEvents([]);
+        }
+      } catch (error) {
+        console.error("Error reading user events from localStorage", error);
+        setUserEvents([]);
       }
-    } catch (error) {
-      console.error("Error reading user events from localStorage", error);
+    } else {
+      setUserEvents([]);
     }
-  }, []);
+  }, [currentUser]);
 
   const updateAndStore = (newUserEvents: UserEvent[]) => {
-    setUserEvents(newUserEvents);
-    localStorage.setItem('userEvents', JSON.stringify(newUserEvents));
+    if (currentUser) {
+      setUserEvents(newUserEvents);
+      localStorage.setItem(`userEvents_${currentUser.uid}`, JSON.stringify(newUserEvents));
+    }
   };
 
   const addUserEvent = (eventData: AddUserEventParams) => {
@@ -60,8 +71,8 @@ export const UserEventsProvider = ({ children }: { children: ReactNode }) => {
       id: Date.now(),
       category: 'User Created',
       organizer: {
-        name: 'You',
-        avatarUrl: 'https://github.com/shadcn.png'
+        name: currentUser?.displayName || 'You',
+        avatarUrl: currentUser?.photoURL || 'https://github.com/shadcn.png'
       },
       ticketsSold: 0,
       // User-provided data with defaults
