@@ -1,17 +1,35 @@
 
 import { navItems, moreNavItems } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Link, useLocation } from 'react-router-dom';
-import { MoreHorizontal } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { MoreHorizontal, LogOut, LogIn } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
+import { auth } from '@/lib/firebase';
+import { signOut } from 'firebase/auth';
 
 const BottomNav = () => {
   const location = useLocation();
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate('/login');
+      toast({ title: "Logged out successfully." });
+    } catch (error) {
+      toast({ title: "Logout failed", description: "Please try again.", variant: "destructive" });
+    }
+  };
 
   const moreNavPaths = moreNavItems.map(item => item.href);
   const isMoreActive = moreNavPaths.includes(location.pathname);
@@ -60,6 +78,22 @@ const BottomNav = () => {
                 </DropdownMenuItem>
               )
             })}
+            <DropdownMenuSeparator />
+            {currentUser ? (
+              <DropdownMenuItem onClick={handleLogout} className="p-0 focus:bg-accent/50 cursor-pointer text-red-500 focus:text-red-500">
+                <div className="flex items-center gap-3 w-full px-3 py-2">
+                  <LogOut className="w-5 h-5" />
+                  <span className="font-medium">Logout</span>
+                </div>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem className="p-0 focus:bg-accent/50">
+                <Link to="/login" className="flex items-center gap-3 w-full px-3 py-2">
+                  <LogIn className="w-5 h-5 text-muted-foreground" />
+                  <span className="font-medium">Login</span>
+                </Link>
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
 

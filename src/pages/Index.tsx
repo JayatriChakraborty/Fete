@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -12,7 +11,7 @@ import { Button } from '@/components/ui/button';
 const Index = () => {
     const [location, setLocation] = useState<string | null>(() => localStorage.getItem("userLocation"));
     const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-    const { currentUser, loading } = useAuth();
+    const { loading } = useAuth();
 
     useEffect(() => {
         if (!location) {
@@ -75,11 +74,6 @@ const Index = () => {
         <div className="p-6 space-y-8">
             <div className="flex justify-between items-center">
                 <Header location={location} onSetLocation={handleSetLocation} />
-                {!currentUser && (
-                    <Button asChild variant="ghost">
-                        <Link to="/login">Login</Link>
-                    </Button>
-                )}
             </div>
             <SearchBar />
             
