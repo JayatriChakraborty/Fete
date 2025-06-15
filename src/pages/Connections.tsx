@@ -47,9 +47,19 @@ const Connections = () => {
       </div>
 
       <Tabs defaultValue="following" className="w-full max-w-md">
-        <TabsList className="grid w-full grid-cols-2 bg-card">
-          <TabsTrigger value="following">Following</TabsTrigger>
-          <TabsTrigger value="followers">Followers</TabsTrigger>
+        <TabsList className="w-full justify-start rounded-none border-b border-border bg-transparent p-0">
+          <TabsTrigger
+            value="following"
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Following
+          </TabsTrigger>
+          <TabsTrigger
+            value="followers"
+            className="relative h-10 rounded-none border-b-2 border-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-primary data-[state=active]:text-primary data-[state=active]:shadow-none"
+          >
+            Followers
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="following" className="mt-6">
           <Card>
