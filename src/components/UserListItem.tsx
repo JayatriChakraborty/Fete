@@ -12,7 +12,7 @@ type UserListItemProps = {
 
 const UserListItem = ({ user, isFollowing, onToggleFollow }: UserListItemProps) => {
   return (
-    <div className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-card/50">
+    <div className="flex items-center justify-between w-full p-4">
       <div className="flex items-center gap-4">
         <Avatar>
           <AvatarImage src={user.avatar} alt={user.name} />
