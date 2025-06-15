@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -123,16 +124,19 @@ const UpcomingEvents = ({ events }: { events: Event[] }) => (
     <HorizontalEventList title="Upcoming Events" events={events} />
 );
 
-const MoreEvents = ({ events }: { events: Event[] }) => (
-    <section className="space-y-4">
-        <h2 className="text-xl font-bold text-white">More Events</h2>
-        <div className="flex flex-col gap-4">
-            {events.map((event) => (
-                <EventCard key={event.id} event={event} />
-            ))}
-            {events.length === 0 && <p className="text-muted-foreground">No more events to show.</p>}
-        </div>
-    </section>
-);
+const MoreEvents = ({ events }: { events: Event[] }) => {
+    const sortedEvents = [...events].sort((a, b) => b.id - a.id);
+    return (
+        <section className="space-y-4">
+            <h2 className="text-xl font-bold text-white">More Events</h2>
+            <div className="flex flex-col gap-4">
+                {sortedEvents.map((event) => (
+                    <EventCard key={event.id} event={event} />
+                ))}
+                {events.length === 0 && <p className="text-muted-foreground">No more events to show.</p>}
+            </div>
+        </section>
+    );
+};
 
 export default Index;

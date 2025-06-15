@@ -1,3 +1,4 @@
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -179,7 +180,7 @@ const CreateEvent = () => {
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {field.value ? (
-                            format(field.value, "PPP")
+                            <span className="truncate">{format(field.value, "PPP")}</span>
                           ) : (
                             <span>Pick a date</span>
                           )}

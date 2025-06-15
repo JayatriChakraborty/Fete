@@ -1,4 +1,3 @@
-
 import { navItems, moreNavItems } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -40,17 +39,15 @@ const BottomNav = () => {
         {navItems.map((item) => {
           const isActive = location.pathname === item.href;
           return (
-            <Link key={item.name} to={item.href} className="flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground transition-colors flex-1 p-1 h-full">
-              <item.icon className={cn("w-5 h-5", isActive && "text-brand-purple")} />
-              <span className={cn("text-[10px] leading-tight", isActive && "text-foreground font-semibold")}>{item.name}</span>
+            <Link key={item.name} to={item.href} className="flex flex-col items-center justify-center text-muted-foreground hover:text-foreground transition-colors flex-1 p-1 h-full">
+              <item.icon className={cn("w-6 h-6", isActive && "text-brand-purple")} />
             </Link>
           )
         })}
         
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground transition-colors flex-1 p-1 h-full focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=open]:text-foreground">
-              <MoreHorizontal className={cn("w-5 h-5", isMoreActive && "text-brand-purple")} />
-              <span className={cn("text-[10px] leading-tight", isMoreActive && "text-foreground font-semibold")}>More</span>
+          <DropdownMenuTrigger className="flex flex-col items-center justify-center text-muted-foreground hover:text-foreground transition-colors flex-1 p-1 h-full focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[state=open]:text-foreground">
+              <MoreHorizontal className={cn("w-6 h-6", isMoreActive && "text-brand-purple")} />
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" align="center" className="mb-2 w-56 bg-card/80 backdrop-blur-lg border-border text-foreground">
             {moreNavItems.map(item => {

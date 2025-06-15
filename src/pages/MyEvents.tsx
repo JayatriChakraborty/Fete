@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRSVP } from "@/contexts/RSVPContext";
 import { useSavedEvents } from "@/contexts/SavedEventsContext";
@@ -35,13 +34,8 @@ const MyEvents = () => {
 
   return (
     <div className="p-4 sm:p-6 animate-in fade-in duration-500 text-white">
-      <div className="flex items-center mb-6 relative">
-        <Link to="/" className="absolute left-0">
-          <Button variant="ghost" size="icon">
-            <ArrowLeft className="h-6 w-6" />
-          </Button>
-        </Link>
-        <h1 className="text-2xl font-bold text-center flex-grow">My Events</h1>
+      <div className="flex items-center justify-center mb-6">
+        <h1 className="text-2xl font-bold text-center">My Events</h1>
       </div>
 
       <Tabs defaultValue="rsvp" className="w-full">
